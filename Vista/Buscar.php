@@ -18,7 +18,6 @@ if(isset($_POST['consulta'])){
                 <th>Codigo</th>
                 <th>Autor</th>
                 <th>Titulo de Tesis</th>
-                <th>Fecha de Creacion</th>
                 <th>Tipo Tesis</th>
             </tr>
         </thead>
@@ -28,7 +27,6 @@ if(isset($_POST['consulta'])){
                 <td><?php echo $resultado['codigoTesis']?></td>
                 <td><?php echo $resultado['autor']?></td>
                 <td><a href=""><?php echo $resultado["titulo"]?></a></td>
-                <td><?php echo $resultado['fechaHoraRegistro']?></td>
                 <td><?php echo $resultado['tipoTesis']?></td>
             </tr>
             <?php

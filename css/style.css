@@ -22,3 +22,7 @@ body{
 .bg-main{
     background-color: var(--mainColor);
 }
+
+tbody{
+    background-color: #ffffff00;
+}
