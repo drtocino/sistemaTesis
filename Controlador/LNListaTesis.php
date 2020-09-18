@@ -1,14 +1,19 @@
 <?php
-require_once("../Modelo/DBUsuario.php");
+require_once("../Modelo/DBTesis.php");
 class LNListaTesis{
-    private $objDBUsuario;
+    private $objDBTesis;
 		function __construct()
 		{	
-			$this->objDBUsuario = new DBUsuario();
+			$this->objDBTesis = new DBTesis();
         }
     public function listaTesis($busqueda){
-        $lista = $this->objDBUsuario->listaTesis($busqueda);
+        $lista = $this->objDBTesis->listaTesis($busqueda);
 		return $lista;
     }
+    public function detalleTesis($idTesis){
+        $lista = $this->objDBTesis->detalleTesis($idTesis);
+		return $lista;
+    }
+    
 }
 ?>

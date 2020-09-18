@@ -21,11 +21,13 @@ $datos = $objDatosCarrera->tesisCarrera($_REQUEST['facultad']);
                 <tr>
                     <th>Carrera</th>
                     <th>Tesis</th>
+                    <th></th>
                 </tr>
                 <?php foreach($datos as $dato){?>
                     <tr>
                         <td><?php echo $dato['nombre']?></td>
                         <td><?php echo $dato['documentos']?></td>
+                        <td><a href="TesisCarreraModalidad.php?carrera=<?php echo $dato['idCarrera']?>" class="btn btn-dark">Por Modalidad</a></td>
                     </tr>
                 <?php }?>
             </table>

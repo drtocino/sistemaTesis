@@ -26,7 +26,7 @@ if(isset($_POST['consulta'])){
             <tr>
                 <td><?php echo $resultado['codigoTesis']?></td>
                 <td><?php echo $resultado['autor']?></td>
-                <td><a href=""><?php echo $resultado["titulo"]?></a></td>
+                <td><a href="TesisDetalle.php?idTesis=<?php echo $resultado['idDocumentoTesis']?>"><?php echo $resultado["titulo"]?></a></td>
                 <td><?php echo $resultado['tipoTesis']?></td>
             </tr>
             <?php

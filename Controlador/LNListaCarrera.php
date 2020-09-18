@@ -10,5 +10,9 @@ class LNListaCarrera{
         $lista = $this->objDBCarrera->tesisCarrera($facultad);
 		return $lista;
     }
+    public function tesisCarreraModalidad($carrera){
+        $lista = $this->objDBCarrera->tesisCarreraModalidad($carrera);
+		return $lista;
+    }
 }
 ?>

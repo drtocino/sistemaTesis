@@ -10,5 +10,9 @@ class LNListaFacultad{
         $lista = $this->objDBFacultad->reporteFacultad();
 		return $lista;
     }
+    public function reporteAnualFacultad($facultad){
+        $lista = $this->objDBFacultad->reporteAnualFacultad($facultad);
+		return $lista;
+    }
 }
 ?>

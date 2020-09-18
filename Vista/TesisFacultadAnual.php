@@ -2,7 +2,7 @@
 require_once("plantillas/navBar.php");
 require_once("../Controlador/LNListaFacultad.php");
 $objDatosFacultad = new LNListaFacultad();
-$datos = $objDatosFacultad->reporteFacultad();
+$datos = $objDatosFacultad->reporteAnualFacultad($_REQUEST['facultad']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,26 +11,22 @@ $datos = $objDatosFacultad->reporteFacultad();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <title>Reporte Tesis Facultad</title>
+    <title>Reporte Anual por Facultad</title>
 </head>
 <body>
     <main>
         <div class="container">
-            <h1>Reporte de Cantidad de Tesis por Facultad</h1>
+            <h1>Reporte Anual de <?php echo $datos[0]['nombre']?></h1>
             <table class="table">
                 <tr>
-                    <th>Facultad</th>
+                    <th>Año</th>
                     <th>Tesis</th>
-                    <th></th>
-                    <th></th>
                 </tr>
                 <?php foreach($datos as $dato){?>
-                <tr>
-                    <td><a><?php echo $dato['nombre']?></a></td>
-                    <td><?php echo $dato['documentos']?></td>
-                    <td><a href="TesisCarrera.php?facultad=<?php echo $dato['idFacultad']?>" class="btn btn-dark">Por Carrera</a></td>
-                    <td><a href="TesisFacultadAnual.php?facultad=<?php echo $dato['idFacultad']?>" class="btn btn-success">Reporte Anual</a></td>
-                </tr>
+                    <tr>
+                        <td><?php echo $dato['anio']?></td>
+                        <td><?php echo $dato['documentos']?></td>
+                    </tr>
                 <?php }?>
             </table>
         </div>
