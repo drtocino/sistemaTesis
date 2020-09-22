@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(!$_SESSION['idUsuario']){
+    header('Location:Salir.php');
+}
 require_once("plantillas/navBar.php");
 require_once("../Controlador/LNListaFacultad.php");
 $objDatosFacultad = new LNListaFacultad();

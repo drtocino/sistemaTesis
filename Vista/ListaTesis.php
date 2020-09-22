@@ -1,9 +1,9 @@
 <?php
 session_start();
-if($_SESSION['idUsuario']){
+if(!isset($_SESSION['idUsuario'])){
+    header('Location:Salir.php');
+}elseif($_SESSION['idUsuario']===1){
     include_once("plantillas/navBar.php");
-}else{
-    
 }
 ?>
 <!DOCTYPE html>

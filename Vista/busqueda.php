@@ -12,11 +12,6 @@ if(isset($_POST['consulta'])){
 //echo var_dump($lista);
     if($lista){
     ?>
-    <style>
-        tbody{
-            background: ;
-        }
-    </style>
     <table class="table table-fluid" id="group">
         <thead>
             <tr><th>Facultad</th><th>Tesis</th><th></th><th></th></tr>
@@ -26,8 +21,8 @@ if(isset($_POST['consulta'])){
             <tr>
                 <td><?php echo $resultado['nombre']?></td>
                 <td><?php echo $resultado['documentos']?></td>
-                <td><a href="" class="btn btn-dark">Por Carrera</a></td>
-                <td><a href="" class="btn btn-success">Reporte Anual</a></td>
+                <td><a href="TesisCarrera.php?facultad=<?php echo $resultado['idFacultad']?>" class="btn btn-dark">Por Carrera</a></td>
+                <td><a href="TesisFacultadAnual.php?facultad=<?php echo $resultado['idFacultad']?>" class="btn btn-success">Reporte Anual</a></td>
             </tr>
             <?php
         }
