@@ -1,5 +1,10 @@
 <?php
-include_once("plantillas/navBar.php");
+session_start();
+if($_SESSION['idUsuario']){
+    include_once("plantillas/navBar.php");
+}else{
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

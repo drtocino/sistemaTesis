@@ -1,5 +1,10 @@
 <?php
-include_once("plantillas/navBar.php");
+session_start();
+if($_SESSION['idUsuario']){
+    include_once("plantillas/navBar.php");
+}else{
+    
+}
 include_once("../Controlador/LNListaTesis.php");
 $objListaTesis = new LNListaTesis();
 $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
@@ -16,6 +21,9 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
 <style>
     .info-card{
         height:35rem;
+    }
+    img{
+        height:25rem;
     }
 </style>
 <body>
@@ -43,7 +51,7 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
                         <div class="card-body">
                             <h5 class="card-title"></h5>
                             <p class="card-text"></p>
-                            <img class="centered" src="<?php echo $datos['imagenTapaTesis']?>" alt="image">
+                            <img class="mx-auto d-block" src="<?php echo $datos['imagenTapaTesis']?>" alt="image">
                         </div>
                     </div>
                 </div>

@@ -16,7 +16,7 @@
       </li>
     </ul>
     <span class="navbar-text">
-      
+      <a href="Salir.php">Salir</a>
     </span>
   </div>
 </nav>

@@ -33,6 +33,33 @@
 			}else{
 				return NULL;
 			}
+        }
+        public function autentificacion($user,$pass){
+            $consulta = "SELECT * FROM persona
+                WHERE usuario=:usuario
+                AND contrasenia=:contrasenia";
+            $cmd = $this->conexion->prepare($consulta);
+            $cmd->bindParam(':usuario',$user);
+            $cmd->bindParam(':contrasenia',$pass);
+            $cmd->execute();
+            $result = $cmd->fetch();
+            if($result){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        public function datosUsuarioUser($usuario){
+			$sqlListaDeEstudiantes = "SELECT * FROM persona WHERE usuario = :usuario;";
+            $cmd = $this->conexion->prepare($sqlListaDeEstudiantes);
+            $cmd->bindParam(':usuario',$usuario);
+			$cmd->execute();
+            $listaEstudiantes = $cmd->fetch();
+			if($listaEstudiantes){
+				return $listaEstudiantes;
+			}else{
+				return NULL;
+			}
 		}
     }
 ?>

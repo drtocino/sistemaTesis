@@ -12,6 +12,11 @@ if(isset($_POST['consulta'])){
 //echo var_dump($lista);
     if($lista){
     ?>
+    <style>
+        tbody{
+            background: ;
+        }
+    </style>
     <table class="table table-fluid" id="group">
         <thead>
             <tr>
@@ -26,7 +31,7 @@ if(isset($_POST['consulta'])){
             <tr>
                 <td><?php echo $resultado['codigoTesis']?></td>
                 <td><?php echo $resultado['autor']?></td>
-                <td><a href="TesisDetalle.php?idTesis=<?php echo $resultado['idDocumentoTesis']?>"><?php echo $resultado["titulo"]?></a></td>
+                <td><a href="TesisDetalle.php?idTesis=<?php echo $resultado['idDocumentoTesis']?>&t=1"><?php echo $resultado["titulo"]?></a></td>
                 <td><?php echo $resultado['tipoTesis']?></td>
             </tr>
             <?php

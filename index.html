@@ -3,13 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Busqueda</title>
 </head>
 <body>
-    <div class="container center">
-        <h1>IR A BUSQUEDAS</h1>
-        <a href="Vista/ListaTesis.php" class="btn btn-primary btn-lg">Busquedas</a>
+    <div class="container mx-auto d-block mt-4">
+        <div class="card bg-main">
+            <h1 class="card-header text-center">TeSys</h1>
+            <div class="card-body bg-light">
+                <form action="Controlador/LNAutentificacion.php" class="was-validated">
+                    <input class="form-control mt-4" type="text" name="user" placeholder="Usuario" id="" required>
+                    <input class="form-control mt-4" type="password" name="pass" placeholder="Password" id="" required>
+                    <input class="btn btn-dark btn-block mt-4" type="submit" value="LOGIN" name="" id="">
+                </form>
+            </div>
+        </div>
+        <a href="Controlador/LNAutentificacion.php" class="btn btn-success btn-block mt-4">Acceder Como Guest</a>
     </div>
 </body>
 </html>
