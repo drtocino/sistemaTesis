@@ -26,3 +26,6 @@ body{
 tbody{
     background-color: #ffffff00;
 }
+.info-card{
+    height: 10rem;
+}

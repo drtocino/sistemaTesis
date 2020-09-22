@@ -13,19 +13,51 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
     <link rel="stylesheet" href="../css/style.css">
     <title>Tesis Detalle</title>
 </head>
+<style>
+    .info-card{
+        height:35rem;
+    }
+</style>
 <body>
     <main>
         <div class="container">
-            <h1><?php echo $datos['titulo']?></h1>
-            <span>Autor: <?php echo $datos['autor']?></span><br>
-            <span>Titulo: <?php echo $datos['titulo']?></span><br>
-            <span>Fecha: <?php echo $datos['fechaHoraRegistro']?></span><br>
-            <span>Tipo de Bibliografía: <?php echo $datos['tipoTesis']?></span><br>
-            <span>Facultad: <?php echo $datos['facultad']?></span><br>
-            <span>Carrera: <?php echo $datos['carrera']?></span><br>
-            <span>Resumen: <?php echo $datos['resumen']?></span><br>
-            <span>Código de la Tesis: <?php echo $datos['codigoTesis']?></span><br>
-            <span>Tapa de la Tesis: <?php echo $datos['imagenTapaTesis']?></span><br>
+
+            <div class="row mt-3">
+                <div class="col-sm-6">
+                    <div class="card text-white bg-dark info-card">
+                        <h5 class="card-header">Datos Generales</h5>
+                        <div class="card-body">
+                            <h5 class="card-title"><span><?php echo $datos['titulo']?></span></h5>
+                            <p class="card-text">Autor: <?php echo $datos['autor']?></p>
+                            <p>Fecha y Hora: <?php echo $datos['fechaHoraRegistro']?></p>
+                            <p>Tipo de Bibliografía: <?php echo $datos['tipoTesis']?></p>
+                            <p>Facultad: <?php echo $datos['facultad']?></p>
+                            <p>Carrera: <?php echo $datos['carrera']?></p>
+                            <p>Código de la Tesis: <?php echo $datos['codigoTesis']?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card text-white bg-dark info-card">
+                        <h5 class="card-header">Tapa de Tesis</h5>
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <p class="card-text"></p>
+                            <img class="centered" src="<?php echo $datos['imagenTapaTesis']?>" alt="image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 mb-4">
+                <div class="col-sm-12">
+                    <div class="card text-white bg-dark">
+                        <h5 class="card-header">Resumen</h5>
+                        <div class="card-body">
+                        <p><?php echo $datos['resumen']?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </body>
