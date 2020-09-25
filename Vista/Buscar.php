@@ -17,7 +17,7 @@ if(isset($_POST['consulta'])){
             background: ;
         }
     </style>
-    <table class="table table-fluid" id="group">
+    <table class="table table-fluid rounded" id="group">
         <thead>
             <tr>
                 <th>Codigo</th>

@@ -20,16 +20,49 @@ $datos = $objDatosCarrera->tesisCarreraModalidad($_REQUEST['carrera']);
             <table class="table">
                 <tr>
                     <th>Modalidad</th>
-                    <th>Tesis</th>
+                    <th class="text-center">Tesis</th>
                 </tr>
                 <?php foreach($datos as $dato){?>
                 <tr>
                     <td><?php echo $dato['nombre']?></td>
-                    <td><?php echo $dato['documentos']?></td>
+                    <td class="text-center"><?php echo $dato['documentos']?></td>
                 </tr>
                 <?php }?>
             </table>
+            <div class="grafico">
+                <canvas id="chart1"></canvas>
+            </div>
         </div>
     </main>
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="../js/busqueda.js"></script>
+    <script src="../js/jquery.dataTables.min.js"></script>
+    <script src="../js/Chart.js"></script>
+    <script>
+        var ctx= document.getElementById("chart1").getContext("2d");
+        var Torta= new Chart(ctx,{
+            type:"pie",
+            data:{
+                labels:[
+                    <?php foreach($datos as $datoN){?>
+                        '<?php echo $datoN['nombre']?>',
+                    <?php }?>
+                ],
+                datasets:[{
+                    label:"Datos",
+                    data:[
+                        <?php foreach($datos as $datoD){?>
+                            <?php echo $datoD['documentos']?>,
+                        <?php }?>
+                    ],
+                    backgroundColor:[
+                        'rgb(240, 165, 0)',
+                        'rgb(51, 51, 51)',
+                        'rgb(200, 200, 200)'
+                    ]
+                }]
+            }
+        });
+    </script>
 </body>
 </html>

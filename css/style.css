@@ -17,6 +17,7 @@
 
 body{
     background-color: var(--dMainColor);
+    
 }
 
 .bg-main{
@@ -25,4 +26,15 @@ body{
 
 tbody{
     background-color: #ffffff00;
+}
+canvas{
+    width: 10rem;
+    height: 10rem;
+    color: white;
+}
+.grafico{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: solid 3px #1a1c20;
+    padding: 1rem;
 }

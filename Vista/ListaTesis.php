@@ -2,7 +2,7 @@
 session_start();
 if(!isset($_SESSION['idUsuario'])){
     header('Location:Salir.php');
-}elseif($_SESSION['idUsuario']===1){
+}elseif($_SESSION['idUsuario']){
     include_once("plantillas/navBar.php");
 }
 ?>

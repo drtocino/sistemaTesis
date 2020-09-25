@@ -54,7 +54,8 @@
                                     ON dt.idTipoTesis = tt.idTipoTesis
                                     AND ac.idAsignacionCarrera = dt.idAsignacionCarrera
                                     WHERE f.idFacultad = :idFacultad
-                                    GROUP BY YEAR(dt.fechaHoraRegistro);";
+                                    GROUP BY YEAR(dt.fechaHoraRegistro)
+                                    ORDER BY YEAR(dt.fechaHoraRegistro) DESC;";
             
             $cmd = $this->conexion->prepare($sqlReporteFacultad);
             $cmd->bindParam(':idFacultad',$idFacultad);
