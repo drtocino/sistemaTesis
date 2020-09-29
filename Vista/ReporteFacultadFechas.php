@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('UTC');
 session_start();
 if(!$_SESSION['idUsuario']){
     header('Location:Salir.php');
@@ -38,12 +39,11 @@ $datos = $objDatosFacultad->reporteFacultad();
 <body>
     <main>
         <div class="container mt-3">
-            <!--
             <div class="input-group mt-3 mb-3">
-                <input type="text" class="form-control" placeholder="Busqueda" title="Escriba solo una palabra por favor" name="buscar" id="buscar">
-            </div>-->
+                <input type="date" class="form-control" placeholder="Busqueda" title="Escriba solo una palabra por favor" name="buscar" id="fechaInicio">
+                <input type="date" class="form-control" placeholder="Busqueda" title="Escriba solo una palabra por favor" value="<?php echo date('Y-m-d');?>" name="buscar" id="fechaFin">
+            </div>
             <h1>Reporte de Cantidad de Tesis por Facultad</h1>
-            <a href="ReporteFacultadFechas.php" class="btn btn-dark">Por Fecha</a>
             <div class="" id="datos"></div>
 
             <!--<table class="table">
@@ -66,13 +66,13 @@ $datos = $objDatosFacultad->reporteFacultad();
         </div>
     </main>
     <script src="../js/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="../js/busqueda.js"></script>
+    <script type="text/javascript" src="../js/buscadorFechas.js"></script>
     <script src="../js/jquery.dataTables.min.js"></script>
     <script src="../js/Chart.js"></script>
     <script>
-        $(document).ready( function () {
+        /*$(document).ready( function () {
             $('#group').DataTable();
-        } );
+        } );*/
     </script>
     <script>
         /*var ctx= document.getElementById("chart1").getContext("2d");

@@ -12,7 +12,7 @@
         <a class="nav-link" href="ListaTesis.php">Lista Tesis</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ReporteFacultad.php">Reporte Facultades</a>
+        <a class="nav-link" href="ReporteFacultadFechas.php">Reporte Facultades</a>
       </li>
     </ul>
     <span class="navbar-text">

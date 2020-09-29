@@ -14,5 +14,9 @@ class LNListaFacultad{
         $lista = $this->objDBFacultad->reporteAnualFacultad($facultad);
 		return $lista;
     }
+    public function reporteFacultadFecha($fechaInicio,$fechaFin){
+        $lista = $this->objDBFacultad->reporteFacultadFecha($fechaInicio,$fechaFin);
+		return $lista;
+    }
 }
 ?>
