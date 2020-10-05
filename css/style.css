@@ -24,6 +24,14 @@ body{
     background-color: var(--mainColor);
 }
 
+.bg-second{
+  background-color: var(--secondColor);
+}
+
+.bg-s-secondary{
+    background-color: var(--dMainColor);
+}
+
 tbody{
     background-color: #ffffff00;
 }
@@ -35,6 +43,34 @@ canvas{
 .grafico{
     margin-top: 1rem;
     margin-bottom: 1rem;
-    border: solid 3px #1a1c20;
+    border: solid 3px #2b2b2b;
     padding: 1rem;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track {
+  background: #343a4000;
+  border: 0px none #343a4000;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-track:active {
+  background: #666666;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
