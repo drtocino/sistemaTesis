@@ -60,6 +60,18 @@
 			}else{
 				return NULL;
 			}
-		}
+        }
+        public function listaUsuario(){
+            $sqlListaUsuarios = "SELECT *, CONCAT_WS(' ',primerNombre,segundoNombre,primerApellido,segundoApellido) AS nombres
+                                FROM persona;";
+            $cmd = $this->conexion->prepare($sqlListaUsuarios);
+			$cmd->execute();
+			$listaUsuarios = $cmd->fetchAll();
+			if($listaUsuarios){
+				return $listaUsuarios;
+			}else{
+				return NULL;
+			}
+        }
     }
 ?>

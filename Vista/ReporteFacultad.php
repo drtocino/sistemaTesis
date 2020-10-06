@@ -37,7 +37,7 @@ $datos = $objDatosFacultad->reporteFacultad();
 </style>
 <body>
     <main>
-        <div class="container mt-3">
+        <div class="container mt-3 bg-white">
             <!--
             <div class="input-group mt-3 mb-3">
                 <input type="text" class="form-control" placeholder="Busqueda" title="Escriba solo una palabra por favor" name="buscar" id="buscar">

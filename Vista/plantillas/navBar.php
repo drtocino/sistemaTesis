@@ -1,5 +1,10 @@
 <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
-<nav class="navbar navbar-expand-lg navbar-light bg-main ">
+<style>
+  .navbar{
+    border-bottom:10px;
+  }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light bg-main">
   <a class="navbar-brand" href="#">
     <svg class="d-inline-block align-top mt-1" height="3rem" viewBox="0 0 512 512" width="3rem" xmlns="http://www.w3.org/2000/svg">
       <rect fill="#353744" height="448" rx="16" width="368" x="72" y="32"/>

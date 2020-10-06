@@ -34,7 +34,7 @@ if(!isset($_SESSION['idUsuario'])){
     }
 </style>
 <body>
-    <div class="container">
+    <div class="container bg-light mt-3 mb-3">
         <h1>Lista Tesis</h1>
         <!--
         <div class="input-group mt-3 mb-3">

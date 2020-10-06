@@ -7,9 +7,10 @@ if($_SESSION['idUsuario']){
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta charset="ANSI">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,7 +48,11 @@ if($_SESSION['idUsuario']){
                 <path d="M46.3 26.5H26.9L20.8 16h31.6l9.2-16H9.4a9.3 9.3 0 00-8.1 4.7 9.3 9.3 0 000 9.4l33.3 57.7a9.4 9.4 0 0016.2 0l1.1-1.9-15.3-26.6z" fill="#4ad295"/>
                 <path d="M84.2 4.7A9.3 9.3 0 0076.1 0h-2.3l-25 43.3 9.2 16L84.2 14a9.3 9.3 0 000-9.3z" fill="#4ad295"/>
                 </svg>
+                
                 <a href="https://www.flaticon.es/">Revisa la Iconografia</a>
+                <br>Icons made by <a href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+                <br>Iconos diseñados por <a href="https://www.flaticon.es/autores/prettycons" title="prettycons">prettycons</a> from <a href="https://www.flaticon.es/" title="Flaticon"> www.flaticon.es</a>
+                <br>Iconos diseñados por <a href="https://www.flaticon.es/autores/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.es/" title="Flaticon"> www.flaticon.es</a>
             </div>
         </div>
     </div>

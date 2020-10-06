@@ -63,6 +63,38 @@
 			}else{
 				return NULL;
 			}
+        }
+        public function registrarTesis(){
+			$sqlIngresarTesis = "INSERT INTO informe(idUsuario,numeroPractica,fechaInicio,fechaFin,iglesia,distrito,grupoPequenio,recepcionSabado)
+									VALUES(:idUsuario,:numeroPractica,:fechaInicio,:fechaFin,:iglesia,:distrito,:grupoPequenio,:recepcionSabado)";
+			try{
+				$cmd = $this->conexion->prepare($sqlIngresarTesis);
+				$cmd->bindParam(':idUsuario',$idUsuario);
+				$cmd->bindParam(':numeroPractica',$numeroPractica);
+				$cmd->bindParam(':fechaInicio',$fechaInicio);
+				$cmd->bindParam(':fechaFin',$fechaFin);
+				$cmd->bindParam(':iglesia',$iglesia);
+				$cmd->bindParam(':distrito',$distrito);
+				$cmd->bindParam(':grupoPequenio',$grupoPequenio);
+				$cmd->bindParam(':recepcionSabado',$recepcionSabado);
+				$cmd->bindParam(':cultoConsagracion',$cultoConsagracion);
+				$cmd->bindParam(':consejoMaestros',$consejoMaestros);
+				$cmd->bindParam(':escuelaSabatica',$escuelaSabatica);
+				$cmd->bindParam(':cultoDivino',$cultoDivino);
+				$cmd->bindParam(':claseBiblica',$claseBiblica);
+				$cmd->bindParam(':cultoJoven',$cultoJoven);
+				$cmd->bindParam(':despedidaSabado',$despedidaSabado);
+				$cmd->bindParam(':actividadExtra',$actividadExtra);
+				if($cmd->execute()){
+					return 1;  	
+				}else{
+					return 0;
+				} 
+			}catch(PDOException $e){
+				echo 'ERROR: No se logro realizar la nueva insercion - '.$e->getMesage();
+				exit();
+				return 0;
+			}
 		}
     }
 ?>

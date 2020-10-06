@@ -38,7 +38,7 @@ $datos = $objDatosFacultad->reporteFacultad();
 </style>
 <body>
     <main>
-        <div class="container mt-3">
+        <div class="container pt-3 pb-3 mb-3 mt-3 bg-light ">
             <div class="input-group mt-3 mb-3">
                 <input type="date" class="form-control" placeholder="Busqueda" title="Escriba solo una palabra por favor" name="buscar" id="fechaInicio">
                 <input type="date" class="form-control" placeholder="Busqueda" title="Escriba solo una palabra por favor" value="<?php echo date('Y-m-d');?>" name="buscar" id="fechaFin">

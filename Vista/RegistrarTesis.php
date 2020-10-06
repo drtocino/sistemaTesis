@@ -1,5 +1,8 @@
 <?php
 include("plantillas/navBar.php");
+require_once("../Controlador/LNListaUsuario.php");
+$objDatosUsuario = new LNListaUsuario();
+$lista = $objDatosUsuario->listaUsuario();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +22,12 @@ include("plantillas/navBar.php");
             <div class="card-body border-secondary bg-dark">
                 <form action="" class="was-validated">
                     <input type="text" name="titulo" class="form-control mt-3 bb text" placeholder="Titulo" required>
-                    <input type="text" name="autor" class="form-control mt-3 bg text" placeholder="Autor" required>
+                    <input type="text" name="autor" class="form-control mt-3 bg text" placeholder="Autor" list="listaAutores" required>
+                    <datalist id="listaAutores">
+                        <?php foreach($lista as $datos){?>
+                            <option value="<?php echo $datos['idPersona']?>"><?php echo $datos['nombres']?></option>
+                        <?php }?>
+                    </datalist>
                     <input type="text" name="tipoBibliografia" class="form-control mt-3 bg text" placeholder="Tipo de Bibliografia" required>
                     <input type="text" name="facultad" class="form-control mt-3 bg text" placeholder="Facultad" required>
                     <input type="text" name="carrera" class="form-control mt-3 bg text" placeholder="Carrera" required>
