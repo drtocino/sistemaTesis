@@ -18,7 +18,7 @@
 body{
     background-color: var(--dMainColor);
     /*background-image: url("../img/pattern2.jpg");*/
-    background: linear-gradient(180deg, rgb(235, 235, 235) 0%, rgb(255, 249, 166) 100%);
+    background: linear-gradient(180deg, rgb(235, 235, 235) 0%, rgb(255, 249, 166) 100%) fixed;
 }
 
 .bg-main{

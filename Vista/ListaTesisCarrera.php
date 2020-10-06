@@ -5,6 +5,10 @@ if(!isset($_SESSION['idUsuario'])){
 }elseif($_SESSION['idUsuario']){
     include_once("plantillas/navBar.php");
 }
+require_once("../Controlador/LNListaTesis.php");
+$objetoTesis = new LNListaTesis();
+//$busqueda="";
+$lista = $objetoTesis->listaTesisCarrera('',$_REQUEST['idCarrera'],$_REQUEST['idTipoTesis']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,10 +48,46 @@ if(!isset($_SESSION['idUsuario'])){
             </div>
         </div>
 -->
-        <div class="table-responsive" id="datos"></div>
+        <!--<div class="table-responsive" id="datos"></div>-->
+        <?php if($lista){ ?>
+        <table class="table table-fluid rounded" id="group">
+        <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Autor</th>
+                <th>Titulo de Tesis</th>
+                <th>Tipo Tesis</th>
+            </tr>
+        </thead>
+        <tbody>
+    <?php foreach($lista as $resultado){?>
+            <tr>
+                <td><?php echo $resultado['codigoTesis']?></td>
+                <td><?php echo $resultado['autor']?></td>
+                <td><a href="TesisDetalleCarrera.php?idTesis=<?php echo $resultado['idDocumentoTesis']?>&t=1"><?php echo $resultado["titulo"]?></a></td>
+                <td><?php echo $resultado['tipoTesis']?></td>
+            </tr>
+            <?php
+        }
+        ?>
+    </tbody>
+    </table>
+    <?php
+    }else{
+    ?>
+        <h4>No se encontraron coincidencias :(</h4>
+    <?php
+    }
+?>
+<script>
+    /*$(document).ready( function () {
+        $('#group').DataTable();
+    } );*/
+</script>
     </div>
+    
     <script src="../js/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/tesisCarrera.js"></script>
     <script src="../js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready( function () {

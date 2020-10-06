@@ -24,7 +24,7 @@ $datos = $objDatosCarrera->tesisCarreraModalidad($_REQUEST['carrera']);
                 </tr>
                 <?php foreach($datos as $dato){?>
                 <tr>
-                    <td><a href="ListaTesisCarrera.php"><?php echo $dato['nombre']?></a></td>
+                    <td><a href="ListaTesisCarrera.php?idCarrera=<?php echo $_REQUEST['carrera']?>&idTipoTesis=<?php echo $dato['idTipoTesis']?>"><?php echo $dato['nombre']?></a></td>
                     <td class="text-center"><?php echo $dato['documentos']?></td>
                 </tr>
                 <?php }?>

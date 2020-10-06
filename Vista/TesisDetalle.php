@@ -94,9 +94,9 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
                     </div>
                 </div>
             </div>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
   Launch demo modal
-</button>
+</button>-->
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -39,7 +39,7 @@
 			}
         }
         public function tesisCarreraModalidad($idCarrera){
-			$sqlTesisCarrera = "SELECT COUNT(dt.idDocumentoTesis) AS documentos, tt.nombre, c.nombre AS carrera
+			$sqlTesisCarrera = "SELECT COUNT(dt.idDocumentoTesis) AS documentos, tt.idTipoTesis, tt.nombre, c.nombre AS carrera
                                 FROM universidad u INNER JOIN facultad f
                                 ON u.idUniversidad = f.idUniversidad
                                 INNER JOIN carrera c

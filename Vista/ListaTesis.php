@@ -3,6 +3,9 @@ session_start();
 if(!isset($_SESSION['idUsuario'])){
     header('Location:Salir.php');
 }elseif($_SESSION['idUsuario']){
+    if(isset($_REQUEST['idCarrera'])){
+        header('Location:ListaTesisCarrera.php');
+    }
     include_once("plantillas/navBar.php");
 }
 ?>
