@@ -79,3 +79,7 @@ canvas{
 .navbar-expand-lg{
   border-bottom:2px solid #2b2b2b;
 }
+
+.nav-item active{
+  background: var(--mainColor);
+}

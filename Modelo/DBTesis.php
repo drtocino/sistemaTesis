@@ -72,7 +72,7 @@
 		}
         public function detalleTesis($idTesis){
 			$sqlDatosTesis = "SELECT CONCAT_WS(' ',p.primerApellido,p.segundoApellido,p.primerNombre,p.segundoNombre) AS autor,dt.titulo,dt.codigoTesis, 
-                                dt.fechaHoraRegistro,tt.nombre AS tipoTesis,f.nombre AS facultad,c.nombre AS carrera,dt.resumen,dt.codigoTesis,dt.imagenTapaTesis
+                                dt.fechaHoraRegistro,tt.nombre AS tipoTesis,f.nombre AS facultad,c.nombre AS carrera,dt.resumen,dt.codigoTesis,dt.imagenTapaTesis, dt.introduccion, p.fotografia
                                 FROM universidad u INNER JOIN facultad f
                                 ON u.idUniversidad = f.idUniversidad
                                 INNER JOIN carrera c
@@ -100,27 +100,18 @@
 				return NULL;
 			}
         }
-        public function registrarTesis(){
-			$sqlIngresarTesis = "INSERT INTO informe(idUsuario,numeroPractica,fechaInicio,fechaFin,iglesia,distrito,grupoPequenio,recepcionSabado)
-									VALUES(:idUsuario,:numeroPractica,:fechaInicio,:fechaFin,:iglesia,:distrito,:grupoPequenio,:recepcionSabado)";
+        public function registrarTesis($idAsignacionCarrera,$titulo,$tipoBibliografia,$fechaHoraRegistro,$resumen,$introduccion,$imagenTapa){
+			$sqlIngresarTesis = "INSERT INTO documentoTesis(idAsignacionCarrera,titulo,idTipoTesis,fechaHoraRegistro,resumen,introduccion,imagenTapa)
+									VALUES(:idAsignacionCarrera,:titulo,:tipoBibliografia,:fechaHoraRegistro,:resumen,:introduccion,:imagenTapa)";
 			try{
 				$cmd = $this->conexion->prepare($sqlIngresarTesis);
-				$cmd->bindParam(':idUsuario',$idUsuario);
-				$cmd->bindParam(':numeroPractica',$numeroPractica);
-				$cmd->bindParam(':fechaInicio',$fechaInicio);
-				$cmd->bindParam(':fechaFin',$fechaFin);
-				$cmd->bindParam(':iglesia',$iglesia);
-				$cmd->bindParam(':distrito',$distrito);
-				$cmd->bindParam(':grupoPequenio',$grupoPequenio);
-				$cmd->bindParam(':recepcionSabado',$recepcionSabado);
-				$cmd->bindParam(':cultoConsagracion',$cultoConsagracion);
-				$cmd->bindParam(':consejoMaestros',$consejoMaestros);
-				$cmd->bindParam(':escuelaSabatica',$escuelaSabatica);
-				$cmd->bindParam(':cultoDivino',$cultoDivino);
-				$cmd->bindParam(':claseBiblica',$claseBiblica);
-				$cmd->bindParam(':cultoJoven',$cultoJoven);
-				$cmd->bindParam(':despedidaSabado',$despedidaSabado);
-				$cmd->bindParam(':actividadExtra',$actividadExtra);
+				$cmd->bindParam(':titulo',$titulo);
+				$cmd->bindParam(':tipoBibliografia',$tipoBibliografia);
+				$cmd->bindParam(':fechaHoraRegistro',$fechaHoraRegistro);
+				$cmd->bindParam(':resumen',$resumen);
+				$cmd->bindParam(':introduccion',$introduccion);
+				$cmd->bindParam(':imagenTapa',$imagenTapa);
+				$cmd->bindParam(':idAsignacionCarrera',$idAsignacionCarrera);
 				if($cmd->execute()){
 					return 1;  	
 				}else{

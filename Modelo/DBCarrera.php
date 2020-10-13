@@ -67,6 +67,20 @@
 			}else{
 				return NULL;
 			}
+        }
+        public function listaCarrera($idFacultad){
+			$sqlListaCarrera = "SELECT idCarrera,nombre
+                                FROM carrera
+                                WHERE idFacultad = :idFacultad;";
+            $cmd = $this->conexion->prepare($sqlListaCarrera);
+            $cmd->bindParam(':idFacultad',$idFacultad);
+			$cmd->execute();
+			$listaCarrera = $cmd->fetchAll();
+			if($listaCarrera){
+				return $listaCarrera;
+			}else{
+				return NULL;
+			}
 		}
     }
 ?>

@@ -5,6 +5,20 @@ if($_SESSION['idUsuario']){
 }else{
     header("Location:Salir.php");
 }
+require_once("../Controlador/LNListaUsuario.php");
+$usuario = new LNListaUsuario();
+$datosUsuario = $usuario->datosUsuario($_SESSION['idUsuario']);
+switch($datosUsuario['idRol']){
+    case 1:
+        $datosUsuario['idRol'] = "Administrador";
+    break;
+    case 2:
+        $datosUsuario['idrol'] = "Docente";
+    break;
+    case 3:
+        $datosUsuario['idRol'] = "Estudiante";
+    break;
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -25,6 +39,9 @@ if($_SESSION['idUsuario']){
     <div class="container mt-4">
         <div class="jumbotron bg-dark text-light">
             <h1>Bienvenido!</h1>
+            <h1><?php echo $datosUsuario['idRol']?></h1>
+            <h1><?php echo $datosUsuario['nombres']?></h1>
+            
         </div>
         <div class="list-group list-group-flush">
             <div class="list-group-item">

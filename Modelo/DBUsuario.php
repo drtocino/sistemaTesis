@@ -73,5 +73,19 @@
 				return NULL;
 			}
         }
+        public function datosUsuario($idPersona){
+            $sqlListaUsuarios = "SELECT *, CONCAT_WS(' ',primerNombre,segundoNombre,primerApellido,segundoApellido) AS nombres
+                                FROM persona
+                                WHERE idPersona = :idPersona;";
+            $cmd = $this->conexion->prepare($sqlListaUsuarios);
+            $cmd->bindParam(':idPersona',$idPersona);
+            $cmd->execute();
+            $listaUsuarios = $cmd->fetch();
+			if($listaUsuarios){
+				return $listaUsuarios;
+			}else{
+				return NULL;
+			}
+        }
     }
 ?>
