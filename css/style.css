@@ -1,7 +1,7 @@
-:root{--mainColor:#f0a500;
-    --secondColor:#cf7500;
-    --dMainColor:#f4f4f4;
-    --dSecondColor:#1a1c20;
+:root{--mainColor:#006a71;
+    --secondColor:#ffffdd;
+    --dMainColor:#cbeaed;
+    --dSecondColor:#d3de32;
 }
 
 .navbar-tesis .navbar-brand{color:#fff}
@@ -16,9 +16,10 @@
 .navbar-tesis .navbar-text a:focus,.navbar-dark.navbar-text a:hover{color:#fff}
 
 body{
-    background-color: var(--dMainColor);
+  background: #363749;
+    /*background-color: var(--dMainColor);*/
     /*background-image: url("../img/pattern2.jpg");*/
-    background: linear-gradient(180deg, rgb(235, 235, 235) 0%, rgb(255, 249, 166) 100%) fixed;
+    /*background: linear-gradient(180deg, rgb(235, 235, 235) 0%, rgb(255, 249, 166) 100%) fixed;*/
 }
 
 .bg-main{
@@ -29,8 +30,12 @@ body{
   background-color: var(--secondColor);
 }
 
-.bg-s-secondary{
+.bg-s-main{
     background-color: var(--dMainColor);
+}
+
+.bg-s-second{
+  background-color: var(--dSecondColor);
 }
 
 tbody{
@@ -76,8 +81,8 @@ canvas{
   background: transparent;
 }
 
-.navbar-expand-lg{
-  border-bottom:2px solid #2b2b2b;
+a{
+  color: var(--mainColor);
 }
 
 .nav-item active{

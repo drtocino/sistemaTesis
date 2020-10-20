@@ -4,7 +4,7 @@
     border-bottom:10px;
   }
 </style>
-<nav class="navbar navbar-expand-lg navbar-dark bg-main">
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-main">
   <a class="navbar-brand" href="#">
   <svg height="3rem" viewBox="0 0 512 512" width="3rem" xmlns="http://www.w3.org/2000/svg">
   <rect fill="#353744" height="448" rx="16" width="368" x="72" y="32"/>
@@ -31,22 +31,13 @@
       <li class="nav-item">
         <a class="nav-link" href="ListaTesis.php">Lista Tesis</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="ListaUsuarios.php">Lista Usuarios</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="ReporteFacultadFechas.php">Reporte Facultades</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="RegistrarTesis.php">Registrar Tesis</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="RegistrarUsuario.php">Registrar Usuario</a>
-      </li>
     </ul>
     <span class="navbar-text">
       <a href="Salir.php">Salir</a>
     </span>
   </div>
-</nav>
+</nav>-->
+<div class="jumbotron bg-main text-light">
+    <h3><span class="text-light bg-danger rounded p-2">Atencion !</span> Estas navegando como usuario externo</h3>
+</div>
 <script src="../js/jquery-3.5.1.min.js"></script>

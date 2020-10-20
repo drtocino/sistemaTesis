@@ -34,17 +34,22 @@
 				return NULL;
 			}
         }
-        public function autentificacion($user,$pass){
+        public function autentificacion($user){
             $consulta = "SELECT * FROM persona
-                WHERE usuario=:usuario
-                AND contrasenia=:contrasenia";
+                WHERE usuario=:usuario;";
             $cmd = $this->conexion->prepare($consulta);
             $cmd->bindParam(':usuario',$user);
-            $cmd->bindParam(':contrasenia',$pass);
+            //$cmd->bindParam(':contrasenia',$pass);
             $cmd->execute();
             $result = $cmd->fetch();
             if($result){
-                return 1;
+                /*echo $result[0][];
+                if(password_verify($result,)){
+
+                }*/
+                //var_dump($result);
+                //echo "hello";
+                return $result;
             }else{
                 return 0;
             }
@@ -79,6 +84,67 @@
                                 WHERE idPersona = :idPersona;";
             $cmd = $this->conexion->prepare($sqlListaUsuarios);
             $cmd->bindParam(':idPersona',$idPersona);
+            $cmd->execute();
+            $listaUsuarios = $cmd->fetch();
+			if($listaUsuarios){
+				return $listaUsuarios;
+			}else{
+				return NULL;
+			}
+        }
+        public function registrarUsuario($primerNombre,$segundoNombre,$primerApellido,$segundoApellido,$ci,$rol,$telefono,$fotografia,$fechaRegistro,$usuario,$contrasenia){
+			$sqlIngresarTesis = "INSERT INTO persona(primerNombre,segundoNombre,primerApellido,segundoApellido,ci,idRol,telefono,fotografia,fechaRegistro,usuario,contrasenia,activo)
+									VALUES(:primerNombre,:segundoNombre,:primerApellido,:segundoApellido,:ci,:rol,:telefono,:fotografia,:fechaRegistro,:usuario,:contrasenia,1);";
+			try{
+				$cmd = $this->conexion->prepare($sqlIngresarTesis);
+				$cmd->bindParam(':rol',$rol);
+				$cmd->bindParam(':ci',$ci);
+				$cmd->bindParam(':primerNombre',$primerNombre);
+				$cmd->bindParam(':segundoNombre',$segundoNombre);
+				$cmd->bindParam(':primerApellido',$primerApellido);
+				$cmd->bindParam(':segundoApellido',$segundoApellido);
+                $cmd->bindParam(':telefono',$telefono);
+                $cmd->bindParam(':fotografia',$fotografia);
+                $cmd->bindParam(':usuario',$usuario);
+                $cmd->bindParam(':contrasenia',$contrasenia);
+                $cmd->bindParam(':fechaRegistro',$fechaRegistro);
+				if($cmd->execute()){
+					return 1;  	
+				}else{
+					return 0;
+				} 
+			}catch(PDOException $e){
+				echo 'ERROR: No se logro realizar la nueva insercion - '.$e->getMesage();
+				exit();
+				return 0;
+			}
+        }
+        public function registrarAsignacionCarrera($idCarrera,$idPersona){
+			$sqlIngresarTesis = "INSERT INTO asignacionCarrera(idCarrera,idPersona)
+									VALUES(:idCarrera,:idPersona);";
+			try{
+				$cmd = $this->conexion->prepare($sqlIngresarTesis);
+				$cmd->bindParam(':idCarrera',$idCarrera);
+				$cmd->bindParam(':idPersona',$idPersona);
+				if($cmd->execute()){
+					return 1;  	
+				}else{
+					return 0;
+				} 
+			}catch(PDOException $e){
+				echo 'ERROR: No se logro realizar la nueva insercion - '.$e->getMesage();
+				exit();
+				return 0;
+			}
+        }
+        public function datosAsignacionCarrera($idPersona,$idCarrera){
+            $sqlListaUsuarios = "SELECT *
+                                FROM asignacionCarrera
+                                WHERE idPersona = :idPersona
+                                AND idCarrera = :idCarrera;";
+            $cmd = $this->conexion->prepare($sqlListaUsuarios);
+            $cmd->bindParam(':idPersona',$idPersona);
+            $cmd->bindParam(':idCarrera',$idCarrera);
             $cmd->execute();
             $listaUsuarios = $cmd->fetch();
 			if($listaUsuarios){

@@ -1,11 +1,13 @@
 $(buscarDatos());
 
-function buscarDatos(consulta){
+function buscarDatos(facultad){
     $.ajax({
         url: 'Buscar.php',
         type: 'POST',
         dataType: 'html',
-        data: {consulta: consulta},
+        data: {facultad: facultad,
+                carrera,carrera
+        },
     })
     .done(function(respuesta){
         $("#datos").html(respuesta);
@@ -15,8 +17,8 @@ function buscarDatos(consulta){
     })
 }
 
-$(document).on('keyup','#buscar',function(){
-    var valor = $(this).val();
+$(document).on('change','#facultad',function(){
+    var valor = $(this).val();    
     if(valor != ""){
         buscarDatos(valor);
     }else{

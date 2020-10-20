@@ -4,48 +4,48 @@ session_start();
 if(!$_SESSION['idUsuario']){
     header('Location:Salir.php');
 }
-require_once("plantillas/navBar.php");
 require_once("../Controlador/LNListaFacultad.php");
 $objDatosFacultad = new LNListaFacultad();
 $datos = $objDatosFacultad->reporteFacultad();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <title>Reporte Tesis Facultad</title>
-</head>
-<style>
-    select{
-        /*display:;*/
-        width:100%;
-        height:calc(1.5em + .75rem + 2px);
-        padding:.375rem .75rem;
-        font-size:1rem;
-        font-weight:400;
-        line-height:1.5;
-        color:#495057;
-        background-color:#fff;
-        background-clip:padding-box;
-        border:1px solid #ced4da;
-        border-radius:.25rem;
-        transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out
-    }
-</style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <title>Reporte Tesis Facultad</title>
+    </head>
+    <style>
+        select{
+            /*display:;*/
+            width:100%;
+            height:calc(1.5em + .75rem + 2px);
+            padding:.375rem .75rem;
+            font-size:1rem;
+            font-weight:400;
+            line-height:1.5;
+            color:#495057;
+            background-color:#fff;
+            background-clip:padding-box;
+            border:1px solid #ced4da;
+            border-radius:.25rem;
+            transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out
+        }
+    </style>
 <body>
+    <?php require_once("plantillas/navBar.php");?>
     <main>
-        <div class="container pt-3 pb-3 mb-3 mt-3 bg-light ">
+        <div class="container pt-3 pb-3 mb-3 mt-3 bg-light rounded">
+            <h1>Reporte de Cantidad de Tesis por Facultad</h1>
             <div class="input-group mt-3 mb-3">
                 <input type="date" class="form-control" placeholder="Busqueda" title="Escriba solo una palabra por favor" name="buscar" id="fechaInicio">
                 <input type="date" class="form-control" placeholder="Busqueda" title="Escriba solo una palabra por favor" value="<?php echo date('Y-m-d');?>" name="buscar" id="fechaFin">
             </div>
-            <h1>Reporte de Cantidad de Tesis por Facultad</h1>
             <div class="" id="datos"></div>
-
+            
             <!--<table class="table">
                 <tr>
                     <th>Facultad</th>

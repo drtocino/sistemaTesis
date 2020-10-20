@@ -3,29 +3,33 @@ $user = $_REQUEST["user"];
 $pass = $_REQUEST["pass"];
 require_once("../Modelo/DBUsuario.php");
 $objUsuario = new DBUsuario();
-$success = $objUsuario->autentificacion($user,$pass);
+$success = $objUsuario->autentificacion($user);
 echo $pass;
+var_dump($success);
 if(!$pass){
-    ?>
-    
-    <?php
     session_start();
     $_SESSION['idUsuario']=0;
     header('Location:../Vista/ListaTesis.php');
 }
 if($success){
     $datos = $objUsuario->datosUsuarioUser($user);
-    session_start();
-    $_SESSION["idUsuario"] = $datos["idPersona"];
-    echo $datos['idPersona'];
-    //$_SESSION["last_action_timestamp"] = time();
-    header('Location:../Vista/Home.php');
+    if(password_verify($pass,$datos['contrasenia'])){
+        echo "exito";
+        session_start();
+        $_SESSION["idUsuario"] = $datos["idPersona"];
+        echo $datos['idPersona'];
+        //$_SESSION["last_action_timestamp"] = time();
+        header('Location:../Vista/Home.php');
+    }else{
+        echo "Error en contrasenia";
+        header("Location:../Vista/ErrorPassword.php");
+    }
 }elseif(!$pass){
     session_start();
     $_SESSION['idUsuario']=0;
     header('Location:../Vista/ListaTesis.php');
 }else{
-        header('Location:..');
+    header('Location:..');
 }
 
 

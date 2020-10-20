@@ -37,7 +37,7 @@ if(isset($_POST['consulta2'])){
                 <td><?php echo $resultado['nombre']?></td>
                 <td class="text-center"><?php echo $resultado['documentos']?></td>
                 <td><a href="TesisCarrera.php?facultad=<?php echo $resultado['idFacultad']?>" class="btn btn-dark">Por Carrera</a></td>
-                <td><a href="TesisFacultadAnual.php?facultad=<?php echo $resultado['idFacultad']?>" class="btn bg-main">Reporte Anual</a></td>
+                <td><a href="TesisFacultadAnual.php?facultad=<?php echo $resultado['idFacultad']?>" class="btn bg-main text-light">Reporte Anual</a></td>
             </tr>
             <?php
         }
@@ -78,9 +78,10 @@ if(isset($_POST['consulta2'])){
                         <?php }?>
                     ],
                     backgroundColor:[
-                        'rgb(240, 165, 0)',
-                        'rgb(51, 51, 51)',
-                        'rgb(180, 180, 180)'
+                        'rgb(0, 106, 113)',
+                        'rgb(203, 234, 237)',
+                        'rgb(211, 222, 50)',
+                        'rgb(74, 74, 74)',
                     ]
                 }]
             }

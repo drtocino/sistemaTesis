@@ -14,5 +14,9 @@ class LNListaUsuario{
         $lista = $this->objDBUsuario->datosUsuario($idPersona);
 		return $lista;
     }
+    public function datosAsignacionCarrera($idPersona,$idCarrera){
+        $lista = $this->objDBUsuario->datosAsignacionCarrera($idPersona,$idCarrera);
+		return $lista;
+    }
 }
 ?>

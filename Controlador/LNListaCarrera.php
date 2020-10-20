@@ -6,6 +6,10 @@ class LNListaCarrera{
 		{	
 			$this->objDBCarrera = new DBCarrera();
         }
+    public function listaCarreras(){
+        $lista = $this->objDBCarrera->listaCarreras();
+        return $lista;
+    }
     public function listaCarrera($facultad){
         $lista = $this->objDBCarrera->listaCarrera($facultad);
         return $lista;

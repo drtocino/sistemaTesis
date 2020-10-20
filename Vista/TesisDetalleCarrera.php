@@ -129,9 +129,9 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
                             <h5 class="card-title"></h5>
                             <div class="row">
                                 <div class="col-sm-5 text-center bg-secondary rounded p-4 m-3">
-                                    <?php if($datos){?>
+                                    <?php if($datos['fotografia']){?>
+                                        <h5>Autor</h5>
                                         <img src="<?php echo $datos['fotografia']?>" alt="image">
-                                        
                                     <?php }else{?>
                                     <h5>Autor</h5>
                                     <img src="892795.svg"></img>
@@ -182,7 +182,7 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
     <script src="../js/pdfobject.js"></script>
     <script>
         var viewer = $('#viewpdf');
-        PDFObject.embed('../documentos/cap3.pdf', viewer);
+        PDFObject.embed('<?php echo $datos['documentoCompleto']?>', viewer);
     </script>
 </body>
 </html>

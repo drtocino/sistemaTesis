@@ -1,24 +1,5 @@
 <?php
 session_start();
-if($_SESSION['idUsuario']){
-    include_once("plantillas/navBar.php");
-}else{
-    header("Location:Salir.php");
-}
-require_once("../Controlador/LNListaUsuario.php");
-$usuario = new LNListaUsuario();
-$datosUsuario = $usuario->datosUsuario($_SESSION['idUsuario']);
-switch($datosUsuario['idRol']){
-    case 1:
-        $datosUsuario['idRol'] = "Administrador";
-    break;
-    case 2:
-        $datosUsuario['idrol'] = "Docente";
-    break;
-    case 3:
-        $datosUsuario['idRol'] = "Estudiante";
-    break;
-}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -36,15 +17,36 @@ switch($datosUsuario['idRol']){
     }
 </style>
 <body>
+<?php
+if($_SESSION['idUsuario']){
+    include_once("plantillas/navBar.php");
+}else{
+    header("Location:Salir.php");
+}
+require_once("../Controlador/LNListaUsuario.php");
+$usuario = new LNListaUsuario();
+$datosUsuario = $usuario->datosUsuario($_SESSION['idUsuario']);
+switch($datosUsuario['idRol']){
+    case 1:
+        $datosUsuario['idRol'] = "Administrador";
+    break;
+    case 2:
+        $datosUsuario['idRol'] = "Docente";
+    break;
+    case 3:
+        $datosUsuario['idRol'] = "Estudiante";
+    break;
+}
+?>
     <div class="container mt-4">
-        <div class="jumbotron bg-dark text-light">
+        <div class="jumbotron bg-s-second text-dark">
             <h1>Bienvenido!</h1>
             <h1><?php echo $datosUsuario['idRol']?></h1>
             <h1><?php echo $datosUsuario['nombres']?></h1>
             
         </div>
-        <div class="list-group list-group-flush">
-            <div class="list-group-item">
+        <div class="list-group list-group-flush rounded">
+            <!--<div class="list-group-item">
                 <svg class="" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="4rem" 
                         viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
                     <path style="fill:#5C6BC0;" d="M255.968,5.329C114.624,5.329,0,120.401,0,262.353c0,113.536,73.344,209.856,175.104,243.872
@@ -59,7 +61,7 @@ switch($datosUsuario['idRol']){
                     <g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
                 </svg>
                 <a href="https://github.com/drtocino/sistemaTesis">Clona el Proyecto</a>
-            </div>
+            </div>-->
             <div class="list-group-item">
                 <svg class="" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100.3 76.5" height="4rem" width="4rem">
                 <path d="M46.3 26.5H26.9L20.8 16h31.6l9.2-16H9.4a9.3 9.3 0 00-8.1 4.7 9.3 9.3 0 000 9.4l33.3 57.7a9.4 9.4 0 0016.2 0l1.1-1.9-15.3-26.6z" fill="#4ad295"/>

@@ -81,6 +81,18 @@
 			}else{
 				return NULL;
 			}
+        }
+        public function listaCarreras(){
+			$sqlListaCarrera = "SELECT idCarrera,nombre
+                                FROM carrera;";
+            $cmd = $this->conexion->prepare($sqlListaCarrera);
+			$cmd->execute();
+			$listaCarrera = $cmd->fetchAll();
+			if($listaCarrera){
+				return $listaCarrera;
+			}else{
+				return NULL;
+			}
 		}
     }
 ?>

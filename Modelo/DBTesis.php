@@ -8,7 +8,7 @@
         {
             $this->conexion =  new Conexion();
         }
-        public function listaTesis($busqueda){
+        public function listaTesis($idFacultad,$idCarrera,$idTipoTesis){
 			$sqlListaUsuarios = "SELECT dt.idDocumentoTesis,dt.codigoTesis, CONCAT_WS(' ',p.primerApellido,p.segundoApellido,p.primerNombre,p.segundoNombre) AS autor,
                                     dt.titulo, tt.nombre AS tipoTesis, dt.fechaHoraRegistro
                                     FROM rol r INNER JOIN persona p
@@ -22,10 +22,20 @@
                                     INNER JOIN asignacionCarrera ac
                                     ON dt.idAsignacionCarrera = ac.idAsignacionCarrera
                                     AND p.idPersona = ac.idPersona
-                                    WHERE dt.titulo LIKE '%".$busqueda."%'
-                                        ORDER BY dt.fechaHoraRegistro DESC;";
-            
+									INNER JOIN carrera c
+									ON ac.idCarrera = c.idCarrera
+									INNER JOIN facultad f
+									ON c.idFacultad = f.idFacultad
+									INNER JOIN universidad u
+									ON f.idUniversidad = u.idUniversidad
+                                    WHERE f.idFacultad LIKE '%".$idFacultad."%'
+									AND c.idCarrera LIKE '%".$idCarrera."%'
+									AND tt.idTipoTesis LIKE '%".$idTipoTesis."%'
+                                    ORDER BY dt.fechaHoraRegistro DESC;";
 			$cmd = $this->conexion->prepare($sqlListaUsuarios);
+			$cmd->bindParam(':idFacultad',$idFacultad);
+			$cmd->bindParam(':idCarrera',$idCarrera);
+			$cmd->bindParam(':idTipoTesis',$idTipoTesis);
 			$cmd->execute();
 			$listaUsuarios = $cmd->fetchAll();
 			if($listaUsuarios){
@@ -72,7 +82,7 @@
 		}
         public function detalleTesis($idTesis){
 			$sqlDatosTesis = "SELECT CONCAT_WS(' ',p.primerApellido,p.segundoApellido,p.primerNombre,p.segundoNombre) AS autor,dt.titulo,dt.codigoTesis, 
-                                dt.fechaHoraRegistro,tt.nombre AS tipoTesis,f.nombre AS facultad,c.nombre AS carrera,dt.resumen,dt.codigoTesis,dt.imagenTapaTesis, dt.introduccion, p.fotografia
+                                dt.fechaHoraRegistro,tt.nombre AS tipoTesis,f.nombre AS facultad,c.nombre AS carrera,dt.resumen,dt.codigoTesis,dt.imagenTapaTesis, dt.introduccion, p.fotografia,dt.documentoCompleto
                                 FROM universidad u INNER JOIN facultad f
                                 ON u.idUniversidad = f.idUniversidad
                                 INNER JOIN carrera c
@@ -101,8 +111,8 @@
 			}
         }
         public function registrarTesis($idAsignacionCarrera,$titulo,$tipoBibliografia,$fechaHoraRegistro,$resumen,$introduccion,$imagenTapa){
-			$sqlIngresarTesis = "INSERT INTO documentoTesis(idAsignacionCarrera,titulo,idTipoTesis,fechaHoraRegistro,resumen,introduccion,imagenTapa)
-									VALUES(:idAsignacionCarrera,:titulo,:tipoBibliografia,:fechaHoraRegistro,:resumen,:introduccion,:imagenTapa)";
+			$sqlIngresarTesis = "INSERT INTO documentoTesis(idAsignacionCarrera,titulo,idTipoTesis,fechaHoraRegistro,resumen,introduccion,imagenTapaTesis)
+									VALUES(:idAsignacionCarrera,:titulo,:tipoBibliografia,:fechaHoraRegistro,:resumen,:introduccion,:imagenTapa);";
 			try{
 				$cmd = $this->conexion->prepare($sqlIngresarTesis);
 				$cmd->bindParam(':titulo',$titulo);
@@ -115,7 +125,8 @@
 				if($cmd->execute()){
 					return 1;  	
 				}else{
-					return 0;
+					var_dump($cmd->errorInfo());
+					//return 0;
 				} 
 			}catch(PDOException $e){
 				echo 'ERROR: No se logro realizar la nueva insercion - '.$e->getMesage();
