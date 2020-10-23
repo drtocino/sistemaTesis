@@ -26,22 +26,21 @@ $lista = $carreras->listaCarreras();
                     <input type="text" name="primerApellido" class="form-control mt-3" id="" placeholder="Primer Apellido" required pattern="[A-Za-z0-9\s]{3,12}" title="Use solo letras y son requeridos 3 caracteres minimos, 12 maximo">
                     <input type="text" name="segundoApellido" class="form-control mt-3" id="" placeholder="Segundo Apellido" required pattern="[A-Za-z0-9\s]{3,12}" title="Use solo letras y son requeridos 3 caracteres minimos, 12 maximo">
                     <input type="text" name="ci" class="form-control mt-3" id="" placeholder="CI" required pattern="[0-9\s]{5,10}" title="Ingrese un numero de 5 hasta 10 caracteres">
-                    <select name="rol" id="" class="form-control mt-3" required>
+                    <select name="rol" id="" class="custom-select mt-3" required>
                         <option value="" disabled selected>Tipo de Usuario</option>
                         <option value="1">Administrador</option>
                         <option value="2">Docente</option>
                         <option value="3">Estudiante</option>
                     </select>
-                    <select name="carrera" id="carrera" class="form-control mt-3" required>
+                    <select name="carrera" id="carrera" class="custom-select mt-3" required>
                         <option value="" selected disabled>Seleccione una Carrera</option>
                         <?php foreach($lista as $datos){?>
                         <option value="<?php echo $datos['idCarrera']?>"><?php echo $datos['nombre']?></option>
                         <?php }?>
                     </select>
                     <input type="text" class="form-control mt-3" name="telefono" id="" placeholder="Telefono" required pattern="[0-9\s]{6,8}" title="Ingrese un numero de 6 hasta 8 caracteres">
-                    <input type="file" class="form-control mt-3" name="fotografia" id="" placeholder="Seleccione una imagen" required>
                     <div class="custom-file mt-3">
-                        <input type="file" class="custom-file-input form-control" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" lang="es" required>
+                        <input type="file" class="custom-file-input" name="fotografia" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" lang="es" required>
                         <label class="custom-file-label text-left" for="inputGroupFile01">Fotografia de la persona en formato png, jpg o jpeg</label>
                     </div>
                     <input type="submit" value="Registrar" class="btn btn-block btn-danger mt-3">

@@ -6,8 +6,8 @@ class LNListaTesis{
 		{	
 			$this->objDBTesis = new DBTesis();
         }
-    public function listaTesis($idFacultad,$idCarrera,$idTipoTesis){
-        $lista = $this->objDBTesis->listaTesis($idFacultad,$idCarrera,$idTipoTesis);
+    public function listaTesis($idFacultad,$idCarrera,$idTipoTesis,$anio){
+        $lista = $this->objDBTesis->listaTesis($idFacultad,$idCarrera,$idTipoTesis,$anio);
 		return $lista;
     }
     public function listaTesisCarrera($busqueda,$idCarrera,$idTipoTesis){

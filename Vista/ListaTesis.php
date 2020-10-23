@@ -6,6 +6,19 @@ $objDatosFacultad = new LNListaFacultad();
 $facultad = $objDatosFacultad->reporteFacultad();
 $objDatosTipoTesis = new LNListaTipoTesis();
 $tipoTesis = $objDatosTipoTesis->listaTipoTesis();
+require_once("../Controlador/LNListaUsuario.php");
+require_once("../Controlador/LNListaCarrera.php");
+require_once("../Controlador/LNListaAsesor.php");
+$objDatosUsuario = new LNListaUsuario();
+$personas = $objDatosUsuario->listaUsuario();
+//$asignacionCarrera = $objDatosUsuario->datosAsignacionCarrera();
+//$objDatosCarrera = new LNListaCarrera();
+//$carreras = $objDatosCarrera->reporteCarrera();
+//$objDatosFacultad = new LNListaFacultad();
+//$facultades = $objDatosFacultad->reporteFacultad();
+$objDatosAsesor = new LNListaAsesor();
+$asesores = $objDatosAsesor->listaAsesor();
+$datosAnio = $objDatosFacultad->reporteAnualFacultad(1);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +55,9 @@ if(!isset($_SESSION['idUsuario'])){
     if(isset($_REQUEST['idCarrera'])){
         header('Location:ListaTesisCarrera.php');
     }
-    include_once("plantillas/navBar.php");
+    include_once("plantillas/navBar.php");?>
+    <button type="button" class="bg-s-second btn-plus text-dark" data-toggle="modal" data-target="#exampleModal">+</button>
+<?php
 }else{?>
     <div class="alert alert-success alert-dismissible bg-main text-light p-5 border-0">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -56,38 +71,158 @@ if(!isset($_SESSION['idUsuario'])){
 ?>
     <div class="container bg-light rounded mt-3 mb-3 pt-3 pb-3">
         <h1>Lista Tesis</h1>
-        <div class="row">
-            <div class="col-sm-4">
-                <select class="custom-select" name="facultad" id="facultad">
-                    <option selected disabled>Facultad</option>
-                    <?php foreach($facultad as $facultades){?>
-                        <option value="<?php echo $facultades['idFacultad']?>"><?php echo $facultades['nombre']?></option>
-                    <?php }?>
-                </select>
-            </div>
-            <div class="col-sm-4">
-                <select class="custom-select" name="carrera" id="carrera">
-                    <option selected disabled>Carrera</option>
-                </select>
-            </div>
-            <div class="col-sm-4">
-                <select class="custom-select" name="tipoBibliografia" id="tipoBibliografia">
-                    <option selected disabled>Bibliografia</option>
-                    <?php foreach($tipoTesis as $ttesis){?>
-                        <option value="<?php echo $ttesis['idTipoTesis']?>"><?php echo $ttesis['nombre']?></option>
-                    <?php }?>
-                </select>
-            </div>
-        </div>
+        <?php if($_SESSION['idUsuario']){?>
+                <div class="row">
+                    <div class="col-sm-6 mt-3">
+                        <select class="custom-select" name="facultad" id="facultad">
+                            <option selected disabled>Facultad</option>
+                            <?php foreach($facultad as $facultades){?>
+                                <option value="<?php echo $facultades['idFacultad']?>"><?php echo $facultades['nombre']?></option>
+                            <?php }?>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        <select class="custom-select" name="carrera" id="carrera">
+                            <option selected disabled>Carrera</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 mt-3">
+                        <select class="custom-select" name="tipoBibliografia" id="tipoBibliografia">
+                            <option selected disabled>Bibliografia</option>
+                            <?php foreach($tipoTesis as $ttesis){?>
+                                <option value="<?php echo $ttesis['idTipoTesis']?>"><?php echo $ttesis['nombre']?></option>
+                            <?php }?>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        <select name="anio" id="anio" class="custom-select">
+                            <option value="" selected disabled>Año</option>
+                            <?php foreach($datosAnio as $dato){?>
+                                <option value="<?php echo $dato['anio']?>"><?php echo $dato['anio']?></option>
+                            <?php }?>
+                        </select>
+                    </div>
+                </div>
+            <?php }else{?>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <select class="custom-select" name="facultad" id="facultad">
+                            <option selected disabled>Facultad</option>
+                            <?php foreach($facultad as $facultades){?>
+                                <option value="<?php echo $facultades['idFacultad']?>"><?php echo $facultades['nombre']?></option>
+                            <?php }?>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="custom-select" name="carrera" id="carrera">
+                            <option selected disabled>Carrera</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="custom-select" name="tipoBibliografia" id="tipoBibliografia">
+                            <option selected disabled>Bibliografia</option>
+                            <?php foreach($tipoTesis as $ttesis){?>
+                                <option value="<?php echo $ttesis['idTipoTesis']?>"><?php echo $ttesis['nombre']?></option>
+                            <?php }?>
+                        </select>
+                    </div>
+                </div>
+                <?php }?>
         <!--
-        <div class="input-group mt-3 mb-3">
-            <input type="text" class="form-control" placeholder="Ingrese un Titulo" title="Escriba solo una palabra por favor" name="carrera" id="buscar">
+            <div class="input-group mt-3 mb-3">
+                <input type="text" class="form-control" placeholder="Ingrese un Titulo" title="Escriba solo una palabra por favor" name="carrera" id="buscar">
             <div class="input-group-append">
                 <button class="btn btn-outline-dark btn-block">Buscar</button>
             </div>
         </div>
                     -->
         <div class="table-responsive-lg mt-3" id="datos"></div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <form action="../Controlador/LNRegistroTesis.php" method="POST" class="was-validated" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header bg-main text-light">
+                        <h5 class="modal-title" id="exampleModalLabel">Registro Tesis</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Paso 1</a>
+                                <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Paso 2</a>
+                                <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Paso 3</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <select name="persona" id="" class="custom-select mt-3" placeholder="Autor" required>
+                                    <option value="" selected disabled>Autor</option>
+                                    <?php foreach($personas as $datos){?>
+                                        <option value="<?php echo $datos['idPersona']?>"><?php echo $datos['nombres']?></option>
+                                    <?php }?>
+                                </select>
+                                <select name="asesor" id="" class="custom-select mt-3" required>
+                                    <option value="" selected disabled>Asesor</option>
+                                    <?php foreach($asesores as $asesor){?>
+                                        <option value=""><?php echo $asesor['nombreCompleto']?></option>
+                                    <?php }?>
+                                </select>
+                                <select name="tipoBibliografia" id="" class="custom-select mt-3" required>
+                                    <option value="" disabled selected>Tipo de Bibliografia</option>
+                                    <?php foreach($tipoTesis as $tipo){?>
+                                        <option value="<?php echo $tipo['idTipoTesis']?>"><?php echo $tipo['nombre']?></option>
+                                    <?php }?>
+                                </select>
+                            </div>
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <select name="facultad" id="fac" class="custom-select mt-3" required>
+                                            <option value="" selected disabled>Seleccione una Facultad</option>
+                                            <?php foreach($facultad as $dato){?>
+                                            <option value="<?php echo $dato['idFacultad']?>"><?php echo $dato['nombre']?></option>
+                                            <?php }?>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <select name="carrera" id="car" class="custom-select mt-3" required>
+                                            <option value="" selected desabled>Seleccione una Facultad Primero</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                <input type="text" name="titulo" class="form-control mt-3" placeholder="Titulo" required>
+                                <input type="text" name="palabrasClave" class="form-control mt-3" id="" placeholder="Palabras Clave" required>
+                                <!-- <option value="" id="asignacion"> </option>-->
+                                <input type="hidden" name="" id="">
+                                <textarea name="resumen" class="form-control mt-3" id="" cols="30" rows="5" placeholder="Resumen" required></textarea>
+                                <textarea name="introduccion" class="form-control mt-3" id="" cols="30" rows="5" placeholder="Introduccion" required></textarea>
+                                
+                                <div class="custom-file mt-3">
+                                    <input type="file" class="custom-file-input form-control" name="imagenTapa" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" lang="es" required>
+                                    <label class="custom-file-label text-left" for="inputGroupFile01">Imagen de Tapa en formato png, jpg o jpeg</label>
+                                </div>
+                                <div class="custom-file mt-3">
+                                    <input type="file" class="custom-file-input form-control" name="documento" id="inputGroupFile02" aria-describedby="inputGroupFileAddon02" lang="es" required>
+                                    <label class="custom-file-label text-left" for="inputGroupFile02">Documento en formato pdf</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+                        <input type="submit" value="Registrar" class="btn bg-s-second">
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
     <script src="../js/jquery-3.5.1.min.js"></script>
     <script src="../js/popper.min.js"></script>
@@ -112,14 +247,15 @@ if(!isset($_SESSION['idUsuario'])){
             });
             $(buscarDatos());
 
-            function buscarDatos(facultad,carrera,tipo){
+            function buscarDatos(facultad,carrera,tipo,anio){
                 $.ajax({
                     url: 'Buscar.php',
                     type: 'POST',
                     dataType: 'html',
                     data: {facultad: facultad,
                             carrera: carrera,
-                            tipo: tipo
+                            tipo: tipo,
+                            anio: anio
                     },
                 })
                 .done(function(respuesta){
@@ -132,7 +268,7 @@ if(!isset($_SESSION['idUsuario'])){
 
             $(document).on('change','#facultad',function(){
                 var facultad = $(this).val();    
-                if(facultad != ""){
+                if(facultad){
                     buscarDatos(facultad);
                     $(document).on('change','#carrera',function(){
                         var carrera = $(this).val();
@@ -142,26 +278,54 @@ if(!isset($_SESSION['idUsuario'])){
                                 var tipo = $(this).val();
                                 if(tipo != ""){
                                     buscarDatos(facultad, carrera, tipo);
+                                    $(document).on('change','#anio',function(){
+                                        var anio = $(this).val();
+                                        if(anio != ""){
+                                            buscarDatos(facultad, carrera, tipo, anio);
+                                        }
+                                    });
                                 }
                             });
                         }
                     });
                 }else{
-                    $(document).on('change','#tipoBibliografia',function(){
-                        var tipo = $(this).val();
-                        if(tipo != ""){
-                            buscarDatos("", "", tipo);
-                        }else{
-                            buscarDatos();
+                }
+            });
+            $(document).on('change','#tipoBibliografia',function(){
+                var tipo = $(this).val();
+                if(tipo != ""){
+                    buscarDatos("", "", tipo);
+                }else{
+                    buscarDatos();
+                }
+            });
+            $(document).on('change','#anio',function(){
+                var anio = $(this).val();
+                if(anio != ""){
+                    buscarDatos("", "", "", anio);
+                    //console.log(anio);
+                }
+            });
+            $('#fac').on('change',function(){
+                var idFacultad = $(this).val();
+                if(idFacultad){
+                    $.ajax({
+                        type:'POST',
+                        url:'data.php',
+                        data:'idFacultad='+idFacultad,
+                        success:function(html){
+                            $('#car').html(html);
                         }
                     });
+                }else{
+                    $('#car').html('<option>Selecciona una Facultad</option>');
                 }
             });
             
         });
         
     </script>
-    <script type="text/javascript" src="../js/main.js"></script>
+    <!--<script type="text/javascript" src="../js/main.js"></script>-->
     <script src="../js/jquery.dataTables.min.js"></script>
 </body>
 </html>

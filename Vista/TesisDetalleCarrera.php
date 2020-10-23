@@ -32,16 +32,32 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
         margin-top:0%;
     }
     #viewpdf{
-        min-height:60rem;
+        min-height:50rem;
     }
     /*.nav-pills{
         background:#f0a500;
     }*/
     .nav-tabs .nav-link{
-        background:#343a40;
+        background:#006a71;
         color:#fff;
         border-radius:5px;
     }
+    /*.nav-tabs .active{
+        background:#006a71;
+        color:#fff;
+        border-radius:5px;
+    }
+    .nav-item .active{
+        background:#fff;
+        color:#fff;
+        border-radius:5px;
+    }*/
+    /*.tab-content{
+        background:#555;
+    }*/
+    /*.tab-pane{
+        background:#000;
+    }*/
     /*.nav-link{
         background:#f0a500;
         color:#2b2b2b;
@@ -54,7 +70,7 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
         background:#2b2b2b;
         color: #2b2b2b;
     }
-
+*/
     /*.active{
         background:#2b2b2b;
     }*/
@@ -64,27 +80,27 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
         <div class="container mb-3">
             <div class="">
                 <ul class="nav nav-tabs mb-3 mt-3" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Datos Generales</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Fotografias</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Resumen</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-intro" role="tab" aria-controls="pills-contact" aria-selected="false">Introduccion</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-doc" role="tab" aria-controls="pills-contact" aria-selected="false">Documento</a>
-                </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Datos Generales</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Fotografias</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Resumen</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-intro" role="tab" aria-controls="pills-contact" aria-selected="false">Introduccion</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-doc" role="tab" aria-controls="pills-contact" aria-selected="false">Documento</a>
+                    </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="card text-white bg-dark info-card">
-                        <h5 class="card-header bg-main text-dark">Datos Generales</h5>
-                        <div class="card-body bg-dark rounded overflow-auto">
+                        <h5 class="card-header bg-main text-light">Datos Generales</h5>
+                        <div class="card-body bg-s-main text-dark  overflow-auto">
                             <div class="row pr-3">
                                 <div class="col-sm-6">
                                     <h5 class="card-title"><span><?php echo $datos['titulo']?></span></h5>
@@ -124,8 +140,8 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
 
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <div class="card text-white bg-dark info-card">
-                        <h5 class="card-header bg-main text-dark">Fotografias</h5>
-                        <div class="card-body bg-dark rounded">
+                        <h5 class="card-header bg-main text-light">Fotografias</h5>
+                        <div class="card-body bg-s-main rounded">
                             <h5 class="card-title"></h5>
                             <div class="row">
                                 <div class="col-sm-5 text-center bg-secondary rounded p-4 m-3">
@@ -149,25 +165,25 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    <div class="card text-white bg-dark">
-                        <h5 class="card-header bg-main text-dark">Resumen</h5>
-                        <div class="card-body bg-dark">
+                    <div class="card text-daek bg-dark">
+                        <h5 class="card-header bg-main text-light">Resumen</h5>
+                        <div class="card-body bg-s-main">
                         <p><?php echo $datos['resumen']?></p>
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-intro" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    <div class="card text-white bg-dark">
-                        <h5 class="card-header bg-main text-dark">Introduccion</h5>
-                        <div class="card-body bg-dark">
+                    <div class="card text-dark bg-dark">
+                        <h5 class="card-header bg-main text-light">Introduccion</h5>
+                        <div class="card-body bg-s-main">
                         <p><?php echo $datos['introduccion']?></p>
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-doc" role="tabpanel" aria-labelledby="pills-contact-tab">
                     <div class="card text-white bg-dark">
-                        <h5 class="card-header bg-main text-dark">Documento</h5>
-                        <div class="card-body bg-dark">
+                        <h5 class="card-header bg-main text-light">Documento</h5>
+                        <div class="card-body bg--s-main">
                             <div id="viewpdf"></div>
                         </div>
                     </div>

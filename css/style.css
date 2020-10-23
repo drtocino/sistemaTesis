@@ -88,3 +88,32 @@ a{
 .nav-item active{
   background: var(--mainColor);
 }
+.nav-tabs active{
+  background: var(--mainColor);
+}
+.btn-plus{
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  border-radius: 50%;
+  width: 3.2rem;
+  height: 3.2rem;
+  font-size: xx-large;
+  text-align: center;
+  z-index: 10;
+  padding-top: 0%;
+  font-weight: bolder;
+  text-emphasis: none;
+  border: none;
+}
+button{
+  border: none;
+}
+.btn-plus:hover{
+  color:blue;
+  text-decoration: none;
+}
+/*
+.btn-plus > a:hover{
+}*/
+

@@ -4,20 +4,32 @@ $objetoTesis = new LNListaTesis();
 $idFacultad = "";
 $idCarrera = "";
 $idTipoTesis = "";
-$lista = $objetoTesis->listaTesis($idFacultad,$idCarrera,$idTipoTesis);
+$anio = "";
+$lista = $objetoTesis->listaTesis($idFacultad,$idCarrera,$idTipoTesis,$anio);
 
 if(isset($_POST['facultad'])){
     $idFacultad = $_POST["facultad"];
-    $lista = $objetoTesis->listaTesis($idFacultad,$idCarrera,$idTipoTesis);
+    $lista = $objetoTesis->listaTesis($idFacultad,$idCarrera,$idTipoTesis,$anio);
     if(isset($_POST['carrera'])){
         $idCarrera = $_POST['carrera'];
-        $lista = $objetoTesis->listaTesis($idFacultad,$idCarrera,$idTipoTesis);
+        $lista = $objetoTesis->listaTesis($idFacultad,$idCarrera,$idTipoTesis,$anio);
         if(isset($_POST['tipo'])){
             $idTipoTesis = $_POST['tipo'];
-            $lista = $objetoTesis->listaTesis($idFacultad,$idCarrera,$idTipoTesis);
+            $lista = $objetoTesis->listaTesis($idFacultad,$idCarrera,$idTipoTesis,$anio);
+            if(isset($_POST['anio'])){
+                $anio = $_POST['anio'];
+                $lista = $objetoTesis->listaTesis($idFacultad,$idCarrera,$idTipoTesis,$anio);
+            }
         }
     }
-}/*elseif(isset($_POST['tipo'])){
+}else{
+    /*if(isset($_POST['anio'])){
+        $idTipoTesis = $_POST['anio'];
+        $lista = $objetoTesis->listaTesis($idFacultad,$idCarrera,$idTipoTesis,$anio);
+    }*/
+}
+
+/*elseif(isset($_POST['tipo'])){
     $idTipoTesis = $_POST['tipo'];
     $lista = $objetoTesis->listaTesis($idFacultad,$idCarrera,$idTipoTesis);
 }*/

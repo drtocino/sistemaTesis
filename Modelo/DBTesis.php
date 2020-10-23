@@ -8,7 +8,7 @@
         {
             $this->conexion =  new Conexion();
         }
-        public function listaTesis($idFacultad,$idCarrera,$idTipoTesis){
+        public function listaTesis($idFacultad,$idCarrera,$idTipoTesis,$anio){
 			$sqlListaUsuarios = "SELECT dt.idDocumentoTesis,dt.codigoTesis, CONCAT_WS(' ',p.primerApellido,p.segundoApellido,p.primerNombre,p.segundoNombre) AS autor,
                                     dt.titulo, tt.nombre AS tipoTesis, dt.fechaHoraRegistro
                                     FROM rol r INNER JOIN persona p
@@ -31,11 +31,13 @@
                                     WHERE f.idFacultad LIKE '%".$idFacultad."%'
 									AND c.idCarrera LIKE '%".$idCarrera."%'
 									AND tt.idTipoTesis LIKE '%".$idTipoTesis."%'
-                                    ORDER BY dt.fechaHoraRegistro DESC;";
+									AND YEAR(dt.fechaHoraRegistro) LIKE '%".$anio."%'
+									ORDER BY dt.fechaHoraRegistro DESC;";
 			$cmd = $this->conexion->prepare($sqlListaUsuarios);
 			$cmd->bindParam(':idFacultad',$idFacultad);
 			$cmd->bindParam(':idCarrera',$idCarrera);
 			$cmd->bindParam(':idTipoTesis',$idTipoTesis);
+			$cmd->bindParam(':anio',$anio);
 			$cmd->execute();
 			$listaUsuarios = $cmd->fetchAll();
 			if($listaUsuarios){

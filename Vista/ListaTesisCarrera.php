@@ -38,7 +38,7 @@ $lista = $objetoTesis->listaTesisCarrera('',$_REQUEST['idCarrera'],$_REQUEST['id
     }
 </style>
 <body>
-    <div class="container">
+    <div class="container bg-light rounded mt-3 mb-3 pt-3 pb-3">
         <h1>Lista Tesis</h1>
         <!--
         <div class="input-group mt-3 mb-3">

@@ -21,12 +21,15 @@ $ListaUsuarios = $Usuario->listaUsuario();
         thead{
             border-radius:10rem;
         }
-    </style>
+        </style>
 <body>
     <?php if(!$_SESSION){
         header("Location:Salir.php");
     }else{
-        include("plantillas/navBar.php");
+        include("plantillas/navBar.php");?>
+        <button type="button" class="bg-s-second btn-plus text-dark" data-toggle="modal" data-target="#exampleModal">+</button>
+        <!--<a href="RegistrarTesis.php" class="bg-s-second btn-plus text-dark">+</a>-->
+<?php
     }?>
     <div class="container rounded bg-light mt-3 mb-3 pt-3 pb-3">
         <h1>Lista de Usuarios</h1>
@@ -70,6 +73,52 @@ $ListaUsuarios = $Usuario->listaUsuario();
                 <?php }?>
             </tbody>
         </table>
+    </div>
+    <!-- Button trigger modal -->
+
+<!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <form action="" class="was-validated" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header bg-main text-light">
+                        <h5 class="modal-title" id="exampleModalLabel">Registro Usuario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+    
+                    <div class="modal-body">
+                        <input type="text" name="primerNombre" class="form-control mt-3 bb text" placeholder="Primer Nombre" pattern="[A-Za-z0-9\s]{3,12}" title="Use solo letras y son requeridos 3 caracteres minimos, 12 maximo" required>
+                        <input type="text" name="segundoNombre" class="form-control mt-3" id="" placeholder="Segundo Nombre" pattern="[A-Za-z0-9\s]{3,12}" title="Use solo letras y son requeridos 3 caracteres minimos, 12 maximo">
+                        <input type="text" name="primerApellido" class="form-control mt-3" id="" placeholder="Primer Apellido" required pattern="[A-Za-z0-9\s]{3,12}" title="Use solo letras y son requeridos 3 caracteres minimos, 12 maximo">
+                        <input type="text" name="segundoApellido" class="form-control mt-3" id="" placeholder="Segundo Apellido" required pattern="[A-Za-z0-9\s]{3,12}" title="Use solo letras y son requeridos 3 caracteres minimos, 12 maximo">
+                        <input type="text" name="ci" class="form-control mt-3" id="" placeholder="CI" required pattern="[0-9\s]{5,10}" title="Ingrese un numero de 5 hasta 10 caracteres">
+                        <select name="rol" id="" class="custom-select mt-3" required>
+                            <option value="" disabled selected>Tipo de Usuario</option>
+                            <option value="1">Administrador</option>
+                            <option value="2">Docente</option>
+                            <option value="3">Estudiante</option>
+                        </select>
+                        <select name="carrera" id="carrera" class="custom-select mt-3" required>
+                            <option value="" selected disabled>Seleccione una Carrera</option>
+                            <?php foreach($lista as $datos){?>
+                            <option value="<?php echo $datos['idCarrera']?>"><?php echo $datos['nombre']?></option>
+                            <?php }?>
+                        </select>
+                        <input type="text" class="form-control mt-3" name="telefono" id="" placeholder="Telefono" required pattern="[0-9\s]{6,8}" title="Ingrese un numero de 6 hasta 8 caracteres">
+                        <div class="custom-file mt-3">
+                            <input type="file" class="custom-file-input" name="fotografia" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" lang="es" required>
+                            <label class="custom-file-label text-left" for="inputGroupFile01">Fotografia de la persona en formato png, jpg o jpeg</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+                        <input type="submit" value="Registrar" class="btn bg-s-second">
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
     <script src="../js/jquery-3.5.1.min.js"></script>
     <script src="../js/popper.min.js"></script>

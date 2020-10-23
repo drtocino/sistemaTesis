@@ -15,7 +15,7 @@ $datos = $objDatosCarrera->tesisCarrera($_REQUEST['facultad']);
 </head>
 <body>
     <main>
-        <div class="container">
+        <div class="container mt-3 mb-3 pt-3 pb-3 bg-light rounded">
             <h1>Tesis por Carrera de <?php echo $datos[0]['fnombre']?></h1>
             <table class="table">
                 <tr>
@@ -58,9 +58,10 @@ $datos = $objDatosCarrera->tesisCarrera($_REQUEST['facultad']);
                         <?php }?>
                     ],
                     backgroundColor:[
-                        'rgb(240, 165, 0)',
-                        'rgb(51, 51, 51)',
-                        'rgb(180, 180, 180)'
+                        'rgb(0, 106, 113)',
+                        'rgb(203, 234, 237)',
+                        'rgb(211, 222, 50)',
+                        'rgb(74, 74, 74)',
                     ]
                 }]
             }

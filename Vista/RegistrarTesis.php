@@ -3,6 +3,7 @@ require_once("../Controlador/LNListaUsuario.php");
 require_once("../Controlador/LNListaCarrera.php");
 require_once("../Controlador/LNListaFacultad.php");
 require_once("../Controlador/LNListaTipoTesis.php");
+require_once("../Controlador/LNListaAsesor.php");
 $objDatosUsuario = new LNListaUsuario();
 $personas = $objDatosUsuario->listaUsuario();
 //$asignacionCarrera = $objDatosUsuario->datosAsignacionCarrera();
@@ -12,6 +13,8 @@ $objDatosFacultad = new LNListaFacultad();
 $facultades = $objDatosFacultad->reporteFacultad();
 $objDatosTipoTesis = new LNListaTipoTesis();
 $tipoTesis = $objDatosTipoTesis->listaTipoTesis();
+$objDatosAsesor = new LNListaAsesor();
+$asesores = $objDatosAsesor->listaAsesor();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,28 +34,33 @@ $tipoTesis = $objDatosTipoTesis->listaTipoTesis();
             </div>
             <div class="card-body border-secondary bg-light">
                 <form action="../Controlador/LNRegistroTesis.php" method="POST" class="was-validated" enctype="multipart/form-data">
-                <input type="text" name="titulo" class="form-control mt-3 bb text" placeholder="Titulo" required>
                     <!--<input type="text" name="autor" class="form-control mt-3 bg text" placeholder="Autor" list="listaAutores"  required>
                     <!--<datalist id="listaAutores">
                         <?php /*foreach($personas as $datos){?>
                             <option value="<?php echo $datos['nombres']?>"><?php echo $datos['idPersona']?></option>
                             <?php }*/?>
                     </datalist>-->
-                    <select name="persona" id="" class="form-control mt-3" placeholder="Autor" required>
+                    <select name="persona" id="" class="custom-select mt-3" placeholder="Autor" required>
                         <option value="" selected disabled>Autor</option>
                         <?php foreach($personas as $datos){?>
                             <option value="<?php echo $datos['idPersona']?>"><?php echo $datos['nombres']?></option>
                         <?php }?>
-                        </select>
-                        <select name="tipoBibliografia" id="" class="form-control mt-3" required>
-                            <option value="" disabled selected>Tipo de Bibliografia</option>
+                    </select>
+                    <select name="asesor" id="" class="custom-select mt-3" required>
+                        <option value="" selected disabled>Asesor</option>
+                        <?php foreach($asesores as $asesor){?>
+                            <option value=""><?php echo $asesor['nombreCompleto']?></option>
+                        <?php }?>
+                    </select>
+                    <select name="tipoBibliografia" id="" class="custom-select mt-3" required>
+                        <option value="" disabled selected>Tipo de Bibliografia</option>
                         <?php foreach($tipoTesis as $tipo){?>
                             <option value="<?php echo $tipo['idTipoTesis']?>"><?php echo $tipo['nombre']?></option>
-                            <?php }?>
+                        <?php }?>
                     </select>
                     <div class="row">
                         <div class="col-lg-6">
-                            <select name="facultad" id="facultad" class="form-control mt-3" required>
+                            <select name="facultad" id="facultad" class="custom-select mt-3" required>
                                 <option value="" selected disabled>Seleccione una Facultad</option>
                                 <?php foreach($facultades as $dato){?>
                                 <option value="<?php echo $dato['idFacultad']?>"><?php echo $dato['nombre']?></option>
@@ -60,18 +68,26 @@ $tipoTesis = $objDatosTipoTesis->listaTipoTesis();
                             </select>
                         </div>
                         <div class="col-lg-6">
-                            <select name="carrera" id="carrera" class="form-control mt-3" required>
+                            <select name="carrera" id="carrera" class="custom-select mt-3" required>
                                 <option value="" selected desabled>Seleccione una Facultad Primero</option>
                             </select>
                         </div>
                     </div>
+                    <input type="text" name="titulo" class="form-control mt-3" placeholder="Titulo" required>
+                    <input type="text" name="palabrasClave" class="form-control mt-3" id="" placeholder="Palabras Clave" required>
                     <!-- <option value="" id="asignacion"> </option>-->
                     <input type="hidden" name="" id="">
                     <textarea name="resumen" class="form-control mt-3" id="" cols="30" rows="5" placeholder="Resumen" required></textarea>
                     <textarea name="introduccion" class="form-control mt-3" id="" cols="30" rows="5" placeholder="Introduccion" required></textarea>
                     
-                    <input type="file" name="imagenTapa" id="imagenTapa" class="form-control mt-3" id="" title="Solo imagenes en fomato jpg jpeg png" required>
-                    <input type="file" name="documento" id="documento" class="form-control mt-3" id="" title="Solo formato pdf" required>
+                    <div class="custom-file mt-3">
+                        <input type="file" class="custom-file-input form-control" name="imagenTapa" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" lang="es" required>
+                        <label class="custom-file-label text-left" for="inputGroupFile01">Imagen de Tapa en formato png, jpg o jpeg</label>
+                    </div>
+                    <div class="custom-file mt-3">
+                        <input type="file" class="custom-file-input form-control" name="documento" id="inputGroupFile02" aria-describedby="inputGroupFileAddon02" lang="es" required>
+                        <label class="custom-file-label text-left" for="inputGroupFile02">Documento en formato pdf</label>
+                    </div>
 
                     <!--<div class="input-group mt-3">
                         <div class="custom-file">
