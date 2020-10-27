@@ -3,6 +3,9 @@ session_start();
 require_once("../Controlador/LNListaUsuario.php");
 $Usuario = new LNListaUsuario();
 $ListaUsuarios = $Usuario->listaUsuario();
+require_once("../Controlador/LNListaCarrera.php");
+$carreras = new LNListaCarrera();
+$listaCarrera = $carreras->listaCarreras();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +44,9 @@ $ListaUsuarios = $Usuario->listaUsuario();
                     <th>Tipo Usuario</th>
                     <th>Usuario</th>
                     <th>Fecha</th>
+                    <?php if($_SESSION['idRol'] == 1){?>
+                    <th></th>
+                    <?php }?>
                     <th></th>
                     <th></th>
                 </tr>
@@ -55,8 +61,17 @@ $ListaUsuarios = $Usuario->listaUsuario();
                     </td>
                     <td><?php echo $lista['usuario']?></td>
                     <td><?php echo $lista['fechaRegistro']?></td>
+                    <?php if($_SESSION['idRol'] == 1){?>
                     <td>
-                        <a href="">
+                        <a href="UsuarioDetalle.php?idUsuario=<?php echo $lista['idPersona']?>">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.93 4.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                            </svg>
+                        </a>
+                    </td>
+                    <?php }?>
+                    <td>
+                        <a href="ActualizarUsuario.php?idUsuario=<?php echo $lista['idPersona']?>">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                             </svg>
@@ -79,7 +94,7 @@ $ListaUsuarios = $Usuario->listaUsuario();
 <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
-            <form action="" class="was-validated" method="POST">
+            <form action="../Controlador/LNRegistroUsuario.php" class="was-validated" method="POST" enctype="multipart/form-data">
                 <div class="modal-content">
                     <div class="modal-header bg-main text-light">
                         <h5 class="modal-title" id="exampleModalLabel">Registro Usuario</h5>
@@ -102,7 +117,7 @@ $ListaUsuarios = $Usuario->listaUsuario();
                         </select>
                         <select name="carrera" id="carrera" class="custom-select mt-3" required>
                             <option value="" selected disabled>Seleccione una Carrera</option>
-                            <?php foreach($lista as $datos){?>
+                            <?php foreach($listaCarrera as $datos){?>
                             <option value="<?php echo $datos['idCarrera']?>"><?php echo $datos['nombre']?></option>
                             <?php }?>
                         </select>

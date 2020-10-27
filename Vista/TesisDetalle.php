@@ -4,7 +4,7 @@ if(!isset($_SESSION['idUsuario'])){
     header('Location:Salir.php');
 }elseif($_SESSION['idUsuario']){
     include_once("plantillas/navBar.php");
-    //header("Location:ListaTesisCarrera.php");
+    header("Location:TesisDetalleCarrera.php?idTesis=".$_REQUEST['idTesis']."&t=".$_REQUEST['t']);
     /*if($_SESSION['idUsuario']>0){
     }*/
 }else{?>
@@ -88,7 +88,7 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
             </div>
             <div class="row mt-4 mb-4">
                 <div class="col-sm-12">
-                    <div class="card border-0">
+                    <div class="card text-light border-0">
                         <h5 class="card-header bg-main">Resumen</h5>
                         <div class="card-body bg-s-main text-dark">
                         <p><?php echo $datos['resumen']?></p>
@@ -105,7 +105,7 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">HOla</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Hola</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

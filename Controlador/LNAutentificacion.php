@@ -17,6 +17,7 @@ if($success){
         echo "exito";
         session_start();
         $_SESSION["idUsuario"] = $datos["idPersona"];
+        $_SESSION['idRol'] = $datos['idRol'];
         echo $datos['idPersona'];
         //$_SESSION["last_action_timestamp"] = time();
         header('Location:../Vista/Home.php');

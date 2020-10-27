@@ -10,7 +10,7 @@
         }
         public function listaTesis($idFacultad,$idCarrera,$idTipoTesis,$anio){
 			$sqlListaUsuarios = "SELECT dt.idDocumentoTesis,dt.codigoTesis, CONCAT_WS(' ',p.primerApellido,p.segundoApellido,p.primerNombre,p.segundoNombre) AS autor,
-                                    dt.titulo, tt.nombre AS tipoTesis, dt.fechaHoraRegistro
+                                    dt.titulo, tt.nombre AS tipoTesis, dt.fechaHoraRegistro, c.idCarrera
                                     FROM rol r INNER JOIN persona p
                                     ON r.idRol = p.idRol
                                     INNER JOIN participantesTesis pt

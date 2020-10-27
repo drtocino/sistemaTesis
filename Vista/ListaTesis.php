@@ -9,6 +9,8 @@ $tipoTesis = $objDatosTipoTesis->listaTipoTesis();
 require_once("../Controlador/LNListaUsuario.php");
 require_once("../Controlador/LNListaCarrera.php");
 require_once("../Controlador/LNListaAsesor.php");
+$objDatosCarreras = new LNListaCarrera();
+$carreras = $objDatosCarreras->listaCarreras();
 $objDatosUsuario = new LNListaUsuario();
 $personas = $objDatosUsuario->listaUsuario();
 //$asignacionCarrera = $objDatosUsuario->datosAsignacionCarrera();
@@ -70,12 +72,12 @@ if(!isset($_SESSION['idUsuario'])){
 }
 ?>
     <div class="container bg-light rounded mt-3 mb-3 pt-3 pb-3">
-        <h1>Lista Tesis</h1>
+        <h1>Lista de Tesis</h1>
         <?php if($_SESSION['idUsuario']){?>
                 <div class="row">
                     <div class="col-sm-6 mt-3">
                         <select class="custom-select" name="facultad" id="facultad">
-                            <option selected disabled>Facultad</option>
+                            <option value="" selected>Facultad</option>
                             <?php foreach($facultad as $facultades){?>
                                 <option value="<?php echo $facultades['idFacultad']?>"><?php echo $facultades['nombre']?></option>
                             <?php }?>
@@ -83,14 +85,17 @@ if(!isset($_SESSION['idUsuario'])){
                     </div>
                     <div class="col-sm-6 mt-3">
                         <select class="custom-select" name="carrera" id="carrera">
-                            <option selected disabled>Carrera</option>
+                            <option value="" selected>Carrera</option>
+                            <?php foreach($carreras as $carrera){?>
+                            <option value="<?php echo $carrera['idCarrera']?>"><?php echo $carrera['nombre']?></option>
+                            <?php }?>
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6 mt-3">
                         <select class="custom-select" name="tipoBibliografia" id="tipoBibliografia">
-                            <option selected disabled>Bibliografia</option>
+                            <option value="" selected>Bibliografia</option>
                             <?php foreach($tipoTesis as $ttesis){?>
                                 <option value="<?php echo $ttesis['idTipoTesis']?>"><?php echo $ttesis['nombre']?></option>
                             <?php }?>
@@ -98,7 +103,7 @@ if(!isset($_SESSION['idUsuario'])){
                     </div>
                     <div class="col-sm-6 mt-3">
                         <select name="anio" id="anio" class="custom-select">
-                            <option value="" selected disabled>Año</option>
+                            <option value="" selected>Año</option>
                             <?php foreach($datosAnio as $dato){?>
                                 <option value="<?php echo $dato['anio']?>"><?php echo $dato['anio']?></option>
                             <?php }?>
@@ -109,7 +114,7 @@ if(!isset($_SESSION['idUsuario'])){
                 <div class="row">
                     <div class="col-sm-4">
                         <select class="custom-select" name="facultad" id="facultad">
-                            <option selected disabled>Facultad</option>
+                            <option selected>Facultad</option>
                             <?php foreach($facultad as $facultades){?>
                                 <option value="<?php echo $facultades['idFacultad']?>"><?php echo $facultades['nombre']?></option>
                             <?php }?>
@@ -117,12 +122,15 @@ if(!isset($_SESSION['idUsuario'])){
                     </div>
                     <div class="col-sm-4">
                         <select class="custom-select" name="carrera" id="carrera">
-                            <option selected disabled>Carrera</option>
+                            <option selected>Carrera</option>
+                            <?php foreach($carreras as $carrera){?>
+                            <option value="<?php echo $carrera['idCarrera']?>"><?php echo $carrera['nombre']?></option>
+                            <?php }?>
                         </select>
                     </div>
                     <div class="col-sm-4">
                         <select class="custom-select" name="tipoBibliografia" id="tipoBibliografia">
-                            <option selected disabled>Bibliografia</option>
+                            <option selected>Bibliografia</option>
                             <?php foreach($tipoTesis as $ttesis){?>
                                 <option value="<?php echo $ttesis['idTipoTesis']?>"><?php echo $ttesis['nombre']?></option>
                             <?php }?>
@@ -191,7 +199,7 @@ if(!isset($_SESSION['idUsuario'])){
                                     </div>
                                     <div class="col-lg-6">
                                         <select name="carrera" id="car" class="custom-select mt-3" required>
-                                            <option value="" selected desabled>Seleccione una Facultad Primero</option>
+                                            <option value="" selected disabled>Seleccione una Facultad Primero</option>
                                         </select>
                                     </div>
                                 </div>
@@ -200,7 +208,6 @@ if(!isset($_SESSION['idUsuario'])){
                                 <input type="text" name="titulo" class="form-control mt-3" placeholder="Titulo" required>
                                 <input type="text" name="palabrasClave" class="form-control mt-3" id="" placeholder="Palabras Clave" required>
                                 <!-- <option value="" id="asignacion"> </option>-->
-                                <input type="hidden" name="" id="">
                                 <textarea name="resumen" class="form-control mt-3" id="" cols="30" rows="5" placeholder="Resumen" required></textarea>
                                 <textarea name="introduccion" class="form-control mt-3" id="" cols="30" rows="5" placeholder="Introduccion" required></textarea>
                                 
@@ -265,8 +272,18 @@ if(!isset($_SESSION['idUsuario'])){
                     console.log("error");
                 })
             }
-
-            $(document).on('change','#facultad',function(){
+            $(document).on('change',function(){
+                var facultad = $('#facultad').val();
+                var carrera = $('#carrera').val();
+                var tipo = $('#tipoBibliografia').val();
+                var anio = $('#anio').val();
+                if(facultad != 0 || carrera != 0 || tipo != 0 || anio != 0){
+                    buscarDatos(facultad,carrera,tipo,anio);
+                }else{
+                    buscarDatos("","","","");
+                }
+            });
+            /*$(document).on('change','#facultad',function(){
                 var facultad = $(this).val();    
                 if(facultad){
                     buscarDatos(facultad);
@@ -289,9 +306,17 @@ if(!isset($_SESSION['idUsuario'])){
                         }
                     });
                 }else{
+                    $(document).on('change','#tipoBibliografia',function(){
+                        var tipo = $(this).val();
+                        if(tipo != ""){
+                            buscarDatos(facultad, "", tipo);
+                        }else{
+                            buscarDatos();
+                        }
+                    });
                 }
-            });
-            $(document).on('change','#tipoBibliografia',function(){
+            });*/
+            /*$(document).on('change','#tipoBibliografia',function(){
                 var tipo = $(this).val();
                 if(tipo != ""){
                     buscarDatos("", "", tipo);
@@ -305,7 +330,7 @@ if(!isset($_SESSION['idUsuario'])){
                     buscarDatos("", "", "", anio);
                     //console.log(anio);
                 }
-            });
+            });*/
             $('#fac').on('change',function(){
                 var idFacultad = $(this).val();
                 if(idFacultad){

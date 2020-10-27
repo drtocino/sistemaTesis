@@ -37,6 +37,12 @@ function generateRandomString($length = 8) {
     }
     return $randomString;
 }
+function createPassword(){
+    $letra1 = substr($_REQUEST['primerNombre'], 0, 1);
+    $apellido = ucwords(strtolower($_REQUEST['primerApellido']));
+    return $password = strtolower($letra1).$apellido."@".substr($_REQUEST['ci'],0,4);
+    //$_REQUEST['']
+}
 
 $letra1 = substr($_REQUEST['primerNombre'], 0, 1);
 $usuario = strtolower($letra1).strtolower($_REQUEST['primerApellido']);
@@ -44,32 +50,37 @@ $persona = $objetoUsuario->datosUsuarioUser($usuario);
 if($persona){
     $usuario .= "1";
 }
-$contrasenia = generateRandomString();
+$contrasenia = createPassword();
 //echo $contrasenia;
 $hash = password_hash($contrasenia,PASSWORD_DEFAULT,['cost' => 10]);
+echo $ciExiste = $objetoUsuario->ciExiste($_REQUEST['ci']);
 
 $persona = $objetoUsuario->datosUsuarioUser($usuario);
 //echo $persona['idPersona'];
 $registro = $objetoUsuario->registrarAsignacionCarrera($_REQUEST['carrera'],$persona['idPersona']);
 
-$exitoRegistro = $objetoUsuario->registrarUsuario(
-    ucwords(strtolower($_REQUEST['primerNombre'])),
-    ucwords(strtolower($_REQUEST['segundoNombre'])),
-    ucwords(strtolower($_REQUEST['primerApellido'])),
-    ucwords(strtolower($_REQUEST['segundoApellido'])),
-    $_REQUEST['ci'],
-    $_REQUEST['rol'],
-    $_REQUEST['telefono'],
-    $archivo,
-    $fechaHoraRegistro,
-    $usuario,
-    $hash
-);
-if($exitoRegistro){
-    echo "exito";
-    header("Location:../Vista/Exito.php?password=".$contrasenia);
+if($ciExiste){
+    header("Location:../Vista/CiDuplicado.php");
 }else{
-    echo "Error";
-    header("Location:../Vista/Error.php");
+    $exitoRegistro = $objetoUsuario->registrarUsuario(
+        ucwords(strtolower($_REQUEST['primerNombre'])),
+        ucwords(strtolower($_REQUEST['segundoNombre'])),
+        ucwords(strtolower($_REQUEST['primerApellido'])),
+        ucwords(strtolower($_REQUEST['segundoApellido'])),
+        $_REQUEST['ci'],
+        $_REQUEST['rol'],
+        $_REQUEST['telefono'],
+        $archivo,
+        $fechaHoraRegistro,
+        $usuario,
+        $hash
+    );
+    if($exitoRegistro){
+        echo "exito";
+        header("Location:../Vista/Exito.php?password=".$contrasenia);
+    }else{
+        echo "Error";
+        header("Location:../Vista/Error.php");
+    }
 }
 ?>

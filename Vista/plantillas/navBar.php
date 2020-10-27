@@ -37,12 +37,13 @@
       <li class="nav-item">
         <a class="nav-link" href="ReporteFacultadFechas.php">Reporte Facultades</a>
       </li>
+      <!--
       <li class="nav-item">
         <a class="nav-link" href="RegistrarTesis.php">Registrar Tesis</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="RegistrarUsuario.php">Registrar Usuario</a>
-      </li>
+      </li>-->
     </ul>
     <span class="navbar-text">
       <a href="Salir.php">Salir</a>

@@ -92,6 +92,20 @@
 				return NULL;
 			}
         }
+        public function ciExiste($ci){
+            $sqlListaUsuarios = "SELECT *, CONCAT_WS(' ',primerNombre,segundoNombre,primerApellido,segundoApellido) AS nombres
+                                FROM persona
+                                WHERE ci = :ci;";
+            $cmd = $this->conexion->prepare($sqlListaUsuarios);
+            $cmd->bindParam(':ci',$ci);
+            $cmd->execute();
+            $listaUsuarios = $cmd->fetch();
+			if($listaUsuarios){
+				return 1;
+			}else{
+				return NULL;
+			}
+        }
         public function registrarUsuario($primerNombre,$segundoNombre,$primerApellido,$segundoApellido,$ci,$rol,$telefono,$fotografia,$fechaRegistro,$usuario,$contrasenia){
 			$sqlIngresarTesis = "INSERT INTO persona(primerNombre,segundoNombre,primerApellido,segundoApellido,ci,idRol,telefono,fotografia,fechaRegistro,usuario,contrasenia,activo)
 									VALUES(:primerNombre,:segundoNombre,:primerApellido,:segundoApellido,:ci,:rol,:telefono,:fotografia,:fechaRegistro,:usuario,:contrasenia,1);";

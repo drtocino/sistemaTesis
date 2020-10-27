@@ -1,10 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['idUsuario'])){
-    header('Location:Salir.php');
-}elseif($_SESSION['idUsuario']){
-    include_once("plantillas/navBar.php");
-}
+
 include_once("../Controlador/LNListaTesis.php");
 $objListaTesis = new LNListaTesis();
 $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
@@ -76,6 +72,11 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
     }*/
 </style>
 <body>
+<?php if(!isset($_SESSION['idUsuario'])){
+    header('Location:Salir.php');
+}elseif($_SESSION['idUsuario']){
+    include_once("plantillas/navBar.php");
+}?>
     <main>
         <div class="container mb-3">
             <div class="">
@@ -158,9 +159,6 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
                                     <img src="892771.svg"></img>
                                 </div>
                             </div>
-
-
-                            
                         </div>
                     </div>
                 </div>
@@ -183,8 +181,12 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
                 <div class="tab-pane fade" id="pills-doc" role="tabpanel" aria-labelledby="pills-contact-tab">
                     <div class="card text-white bg-dark">
                         <h5 class="card-header bg-main text-light">Documento</h5>
-                        <div class="card-body bg--s-main">
+                        <div class="card-body bg-s-main text-dark">
+                            <?php if($datos['documentoCompleto']){?>
                             <div id="viewpdf"></div>
+                            <?php }else{?>
+                            <h3>No se pudo encontrar el archivo PDF</h3>
+                            <?php }?>
                         </div>
                     </div>
                 </div>
