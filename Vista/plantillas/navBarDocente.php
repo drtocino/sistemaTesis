@@ -32,15 +32,11 @@
         <a class="nav-link" href="ListaTesis.php">Lista Tesis</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ListaUsuarios.php">Lista Usuarios</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="ReporteFacultadFechas.php">Reporte Facultades</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Perfil.php">Perfil</a>
       </li>
-
     </ul>
     <span class="navbar-text">
       <a href="Salir.php">Salir</a>

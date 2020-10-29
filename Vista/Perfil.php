@@ -2,7 +2,7 @@
 session_start();
 require_once("../Controlador/LNListaUsuario.php");
 $listaUsuarios = new LNListaUsuario();
-$usuario = $listaUsuarios->datosUsuario($_REQUEST['idUsuario']);
+$usuario = $listaUsuarios->datosUsuario($_SESSION['idUsuario']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,7 @@ $usuario = $listaUsuarios->datosUsuario($_REQUEST['idUsuario']);
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <!-- <link rel="stylesheet" href="../css/jquery.dataTables.min.css">-->
-    <title>Detalle de Usuario</title>
+    <title><?php echo $usuario['nombres']?></title>
 </head>
 <style>
     img{
@@ -31,21 +31,29 @@ $usuario = $listaUsuarios->datosUsuario($_REQUEST['idUsuario']);
     }
 </style>
 <body>
-    <?php if($_SESSION['idUsuario']){?>
-            <?php include("plantillas/navBar.php");?>
-    <?php }else{?>
-            <?php header('Location:Salir.php');?>
-    <?php }?>
+<?php
+if($_SESSION['idUsuario']){
+    if($usuario['idRol']==1){
+        include_once("plantillas/navBar.php");
+    }elseif($usuario['idRol']==2){
+        include_once("plantillas/navBarDocente.php");
+    }elseif($usuario['idRol']==3){
+        include_once("plantillas/navBarEstudiante.php");
+    }
+}else{
+    header("Location:Salir.php");
+}
+?>
     <div class="container mt-3 mb-3 pt-3 pb-3 bg-s-second rounded">
-        <h1>Detalle de Usuario</h1>
+        <h1>Datos Personales</h1>
         <div class="row">
             <div class="col-sm-6 mt-3">
-                <h5 class="bg-light p-2 rounded"><strong>Nombres: </strong><?php echo $usuario['nombres']?></h5>
-                <h5 class="bg-light p-2 rounded"><strong>Usuario: </strong><?php echo $usuario['usuario']?></h5>
-                <h5 class="bg-light p-2 rounded"><strong>CI: </strong><?php echo $usuario['ci']?></h5>
-                <h5 class="bg-light p-2 rounded"><strong>Rol: </strong><?php switch($usuario['idRol']){ case 1:echo "Administrador";break;case 2:echo "Docente";break;case 3:echo "Estudiante";break;}?></h5>
-                <h5 class="bg-light p-2 rounded"><strong>Estado: </strong><?php if($usuario['activo']) echo "Activo"; else echo "Inactivo"?></h5>
-                <h5 class="bg-light p-2 rounded"><strong>Fecha de Registro: </strong><?php echo $usuario['fechaRegistro']?></h5>
+                <h5 class="bg-light text-dark rounded p-2"><strong>Nombres: </strong><?php echo $usuario['nombres']?></h5>
+                <h5 class="bg-light text-dark rounded p-2"><strong>Usuario: </strong><?php echo $usuario['usuario']?></h5>
+                <h5 class="bg-light text-dark rounded p-2"><strong>CI: </strong><?php echo $usuario['ci']?></h5>
+                <h5 class="bg-light text-dark rounded p-2"><strong>Rol: </strong><?php switch($usuario['idRol']){ case 1:echo "Administrador";break;case 2:echo "Docente";break;case 3:echo "Estudiante";break;}?></h5>
+                <h5 class="bg-light text-dark rounded p-2"><strong>Estado: </strong><?php if($usuario['activo']) echo "Activo"; else echo "Inactivo"?></h5>
+                <h5 class="bg-light text-dark rounded p-2"><strong>Fecha de Registro: </strong><?php echo $usuario['fechaRegistro']?></h5>
             </div>
             <div class="col-sm-6 mt-3">
                 <?php if($usuario['fotografia']){?>

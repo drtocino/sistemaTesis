@@ -51,15 +51,29 @@ $datosAnio = $objDatosFacultad->reporteAnualFacultad(1);
 </style>
 <body>
 <?php
+require_once("../Controlador/LNListaUsuario.php");
+$usuario = new LNListaUsuario();
+$datosUsuario = $usuario->datosUsuario($_SESSION['idUsuario']);
+if($_SESSION['idUsuario']){
+    if($datosUsuario['idRol']==1){
+        include_once("plantillas/navBar.php");
+?>
+    <button type="button" class="bg-s-second btn-plus text-dark" data-toggle="modal" data-target="#exampleModal">+</button>
+<?php
+    }elseif($datosUsuario['idRol']==2){
+        include_once("plantillas/navBarDocente.php");
+    }elseif($datosUsuario['idRol']==3){
+        include_once("plantillas/navBarEstudiante.php");
+    }
+}else{
+    header("Location:Salir.php");
+}
 if(!isset($_SESSION['idUsuario'])){
     header('Location:Salir.php');
 }elseif($_SESSION['idUsuario']){
     if(isset($_REQUEST['idCarrera'])){
         header('Location:ListaTesisCarrera.php');
     }
-    include_once("plantillas/navBar.php");?>
-    <button type="button" class="bg-s-second btn-plus text-dark" data-toggle="modal" data-target="#exampleModal">+</button>
-<?php
 }else{?>
     <div class="alert alert-success alert-dismissible bg-main text-light p-5 border-0">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -74,7 +88,7 @@ if(!isset($_SESSION['idUsuario'])){
     <div class="container bg-light rounded mt-3 mb-3 pt-3 pb-3">
         <h1>Lista de Tesis</h1>
         <?php if($_SESSION['idUsuario']){?>
-                <div class="row">
+                <div class="row" id="filters">
                     <div class="col-sm-6 mt-3">
                         <select class="custom-select" name="facultad" id="facultad">
                             <option value="" selected>Facultad</option>
@@ -92,7 +106,7 @@ if(!isset($_SESSION['idUsuario'])){
                         </select>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" id="filters">
                     <div class="col-sm-6 mt-3">
                         <select class="custom-select" name="tipoBibliografia" id="tipoBibliografia">
                             <option value="" selected>Bibliografia</option>
@@ -272,7 +286,7 @@ if(!isset($_SESSION['idUsuario'])){
                     console.log("error");
                 })
             }
-            $(document).on('change',function(){
+            $(document).on('change','#filters',function(){
                 var facultad = $('#facultad').val();
                 var carrera = $('#carrera').val();
                 var tipo = $('#tipoBibliografia').val();

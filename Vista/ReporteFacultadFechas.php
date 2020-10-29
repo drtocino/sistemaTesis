@@ -36,7 +36,21 @@ $datos = $objDatosFacultad->reporteFacultad();
         }
     </style>
 <body>
-    <?php require_once("plantillas/navBar.php");?>
+<?php
+require_once("../Controlador/LNListaUsuario.php");
+$usuario = new LNListaUsuario();
+$datosUsuario = $usuario->datosUsuario($_SESSION['idUsuario']);
+if(!$_SESSION['idUsuario']){
+    header('Location:Salir.php');
+}
+if($datosUsuario['idRol']==1){
+    include_once("plantillas/navBar.php");
+}elseif($datosUsuario['idRol']==2){
+    include_once("plantillas/navBarDocente.php");
+}elseif($datosUsuario['idRol']==3){
+    header('Location:Home.php');
+}
+?>
     <main>
         <div class="container pt-3 pb-3 mb-3 mt-3 bg-light rounded">
             <h1>Reporte de Cantidad de Tesis por Facultad</h1>

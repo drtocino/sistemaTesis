@@ -1,5 +1,5 @@
 <?php
-require_once("plantillas/navBar.php");
+session_start();
 require_once("../Controlador/LNListaFacultad.php");
 $objDatosFacultad = new LNListaFacultad();
 $datos = $objDatosFacultad->reporteAnualFacultad($_REQUEST['facultad']);
@@ -14,6 +14,21 @@ $datos = $objDatosFacultad->reporteAnualFacultad($_REQUEST['facultad']);
     <title>Reporte Anual por Facultad</title>
 </head>
 <body>
+<?php
+require_once("../Controlador/LNListaUsuario.php");
+$usuario = new LNListaUsuario();
+$datosUsuario = $usuario->datosUsuario($_SESSION['idUsuario']);
+if(!$_SESSION['idUsuario']){
+    header('Location:Salir.php');
+}
+if($datosUsuario['idRol']==1){
+    include_once("plantillas/navBar.php");
+}elseif($datosUsuario['idRol']==2){
+    include_once("plantillas/navBarDocente.php");
+}elseif($datosUsuario['idRol']==3){
+    header('Location:Home.php');
+}
+?>
     <main>
         <div class="container mt-3 mb-3 pt-3 pb-3 bg-light rounded">
             <h1>Reporte Anual de <?php echo $datos[0]['nombre']?></h1>

@@ -8,7 +8,7 @@
     <title>Error Password</title>
 </head>
 <body>
-    <div class="container text-center mt-3">
+    <div class="container text-light text-center mt-3">
         <h3>Error en el Password revise e intente de nuevo por favor</h3>
 
     </div>

@@ -38,44 +38,27 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
         color:#fff;
         border-radius:5px;
     }
-    /*.nav-tabs .active{
-        background:#006a71;
-        color:#fff;
-        border-radius:5px;
-    }
-    .nav-item .active{
-        background:#fff;
-        color:#fff;
-        border-radius:5px;
-    }*/
-    /*.tab-content{
-        background:#555;
-    }*/
-    /*.tab-pane{
-        background:#000;
-    }*/
-    /*.nav-link{
-        background:#f0a500;
-        color:#2b2b2b;
-    }
-    .nav-link .active{
-        background:#2b2b2b;
-        color: #2b2b2b;
-    }
-    .nav-item .active{
-        background:#2b2b2b;
-        color: #2b2b2b;
-    }
-*/
-    /*.active{
-        background:#2b2b2b;
-    }*/
 </style>
 <body>
+<?php
+require_once("../Controlador/LNListaUsuario.php");
+$usuario = new LNListaUsuario();
+$datosUsuario = $usuario->datosUsuario($_SESSION['idUsuario']);
+if(!$_SESSION['idUsuario']){
+    header('Location:Salir.php');
+}
+if($datosUsuario['idRol']==1){
+    include_once("plantillas/navBar.php");
+}elseif($datosUsuario['idRol']==2){
+    include_once("plantillas/navBarDocente.php");
+}elseif($datosUsuario['idRol']==3){
+    header('Location:Home.php');
+}
+?>
 <?php if(!isset($_SESSION['idUsuario'])){
     header('Location:Salir.php');
 }elseif($_SESSION['idUsuario']){
-    include_once("plantillas/navBar.php");
+    
 }?>
     <main>
         <div class="container mb-3">
