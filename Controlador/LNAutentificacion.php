@@ -30,7 +30,7 @@ if($success){
     $_SESSION['idUsuario']=0;
     header('Location:../Vista/ListaTesis.php');
 }else{
-    header('Location:..');
+    //header('Location:..');
 }
 
 

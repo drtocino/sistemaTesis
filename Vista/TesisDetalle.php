@@ -41,7 +41,9 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
 
 </style>
 <body>
+<?php
 
+?>
     <main>
         <div class="container">
             <div class="row">

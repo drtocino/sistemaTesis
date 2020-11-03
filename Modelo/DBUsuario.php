@@ -67,7 +67,7 @@
 			}
         }
         public function listaUsuario(){
-            $sqlListaUsuarios = "SELECT *, CONCAT_WS(' ',primerNombre,segundoNombre,primerApellido,segundoApellido) AS nombres
+            $sqlListaUsuarios = "SELECT *, CONCAT_WS(' ',primerApellido,segundoApellido,primerNombre,segundoNombre) AS nombres
                                 FROM persona;";
             $cmd = $this->conexion->prepare($sqlListaUsuarios);
 			$cmd->execute();
@@ -79,7 +79,7 @@
 			}
         }
         public function datosUsuario($idPersona){
-            $sqlListaUsuarios = "SELECT *, CONCAT_WS(' ',primerNombre,segundoNombre,primerApellido,segundoApellido) AS nombres
+            $sqlListaUsuarios = "SELECT *, CONCAT_WS(' ',primerApellido,segundoApellido,primerNombre,segundoNombre) AS nombres
                                 FROM persona
                                 WHERE idPersona = :idPersona;";
             $cmd = $this->conexion->prepare($sqlListaUsuarios);
@@ -92,8 +92,30 @@
 				return NULL;
 			}
         }
+        public function datosAsignacion($idPersona){
+            $sqlListaUsuarios = "SELECT ac.idAsignacionCarrera,CONCAT_WS(' ',p.primerApellido,p.segundoApellido,p.primerNombre,p.segundoNombre) AS autor, c.nombre AS carrera
+                                    FROM universidad u INNER JOIN facultad f
+                                    ON u.idUniversidad = f.idUniversidad
+                                    INNER JOIN carrera c
+                                    ON f.idFacultad = c.idFacultad
+                                    INNER JOIN asignacionCarrera ac
+                                    ON c.idCarrera = ac.idCarrera
+                                    INNER JOIN persona p
+                                    ON ac.idPersona = p.idPersona
+                                    WHERE p.idPersona = :idPersona
+                                    ORDER BY p.primerApellido;";
+            $cmd = $this->conexion->prepare($sqlListaUsuarios);
+            $cmd->bindParam(':idPersona',$idPersona);
+            $cmd->execute();
+            $listaUsuarios = $cmd->fetch();
+			if($listaUsuarios){
+				return $listaUsuarios;
+			}else{
+				return NULL;
+			}
+        }
         public function ciExiste($ci){
-            $sqlListaUsuarios = "SELECT *, CONCAT_WS(' ',primerNombre,segundoNombre,primerApellido,segundoApellido) AS nombres
+            $sqlListaUsuarios = "SELECT *, CONCAT_WS(' ',primerApellido,segundoApellido,primerNombre,segundoNombre) AS nombres
                                 FROM persona
                                 WHERE ci = :ci;";
             $cmd = $this->conexion->prepare($sqlListaUsuarios);
@@ -133,11 +155,62 @@
 				return 0;
 			}
         }
+        public function actualizarUsuario($idPersona,$primerNombre,$segundoNombre,$primerApellido,$segundoApellido,$ci,$idRol,$telefono,$fotografia,$fechaActualizacion,$usuario,$contrasenia,$activo){
+			$sqlActualizarUsuario= "UPDATE persona
+									SET idRol = :idRol, primerNombre = :primerNombre, segundoNombre = :segundoNombre, primerApellido = :primerApellido, segundoApellido = :segundoApellido,
+									ci = :ci, telefono = :telefono, fechaActualizacion = :fechaActualizacion, fotografia = :fotografia, usuario = :usuario, contrasenia = :contrasenia, activo = :activo
+									WHERE idPersona = :idPersona;";
+			try{
+				$cmd = $this->conexion->prepare($sqlActualizarUsuario);
+					$cmd->bindParam(':idPersona', $idPersona);
+					$cmd->bindParam(':primerNombre', $primerNombre);
+					$cmd->bindParam(':segundoNombre', $segundoNombre);
+					$cmd->bindParam(':primerApellido', $primerApellido);
+					$cmd->bindParam(':segundoApellido', $segundoApellido);
+					$cmd->bindParam(':ci', $ci);
+                	$cmd->bindParam(':idRol', $idRol);
+					$cmd->bindParam(':telefono', $telefono);
+                    $cmd->bindParam(':fotografia', $fotografia);
+					$cmd->bindParam(':fechaActualizacion', $fechaActualizacion);
+					$cmd->bindParam(':usuario', $usuario);
+                    $cmd->bindParam(':contrasenia', $contrasenia);
+					$cmd->bindParam(':activo', $activo);
+					if($cmd->execute()){
+						return 1;  	
+					}else{
+						return 0;
+					}
+			}catch(PDOException $e){
+				echo 'ERROR: No se logro realizar la actualizacion'.$e->getMesage();
+				exit();
+				return 0;
+			}
+		}
         public function registrarAsignacionCarrera($idCarrera,$idPersona){
 			$sqlIngresarTesis = "INSERT INTO asignacionCarrera(idCarrera,idPersona)
 									VALUES(:idCarrera,:idPersona);";
 			try{
 				$cmd = $this->conexion->prepare($sqlIngresarTesis);
+				$cmd->bindParam(':idCarrera',$idCarrera);
+				$cmd->bindParam(':idPersona',$idPersona);
+				if($cmd->execute()){
+					return 1;  	
+				}else{
+					return 0;
+				} 
+			}catch(PDOException $e){
+				echo 'ERROR: No se logro realizar la nueva insercion - '.$e->getMesage();
+				exit();
+				return 0;
+			}
+        }
+        public function actualizarAsignacionCarrera($idAsignacionCarrera,$idCarrera,$idPersona){
+			$sqlIngresarTesis = "UPDATE asignacionCarrera
+                                 SET idCarrera = :idCarrera, idPersona = :idPersona
+                                 WHERE idAsignacionCarrera = :idAsignacionCarrera;";
+			try{
+                $cmd = $this->conexion->prepare($sqlIngresarTesis);
+                $cmd->bindParam(':idAsignacionCarrera',$idAsignacionCarrera);
 				$cmd->bindParam(':idCarrera',$idCarrera);
 				$cmd->bindParam(':idPersona',$idPersona);
 				if($cmd->execute()){

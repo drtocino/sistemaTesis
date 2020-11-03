@@ -66,7 +66,11 @@ if($_SESSION['idUsuario']){
         include_once("plantillas/navBarEstudiante.php");
     }
 }else{
-    header("Location:Salir.php");
+    if($_SESSION['idUsuario']==0){
+
+    }else{
+        header("Location:Salir.php");
+    }
 }
 if(!isset($_SESSION['idUsuario'])){
     header('Location:Salir.php');

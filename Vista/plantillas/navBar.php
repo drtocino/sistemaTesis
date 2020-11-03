@@ -29,10 +29,10 @@
         <a class="nav-link" href="Home.php">Inicio<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ListaTesis.php">Lista Tesis</a>
+        <a class="nav-link" href="ListaTesis.php">Tesis</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ListaUsuarios.php">Lista Usuarios</a>
+        <a class="nav-link" href="ListaUsuarios.php">Usuarios</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="ReporteFacultadFechas.php">Reporte Facultades</a>

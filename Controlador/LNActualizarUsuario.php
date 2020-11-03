@@ -7,7 +7,7 @@ $size = getimagesize($_FILES["fotografia"]["tmp_name"]);
 //var_dump($_FILES["imagenTapa"]);
 require_once("../Modelo/DBUsuario.php");
 $objetoUsuario = new DBUsuario();
-$fechaHoraRegistro = date('Y-m-d h:i:s');
+$fechaHoraActualizacion = date('Y-m-d h:i:s');
 $esImagen = getimagesize($_FILES['fotografia']['tmp_name']);
 if($esImagen){
     $size = $_FILES['fotografia']['size'];
@@ -28,41 +28,32 @@ if($esImagen){
 }else{
     header("Location:../Vista/ErrorImagen.php");
 }
-function generateRandomString($length = 8) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-}
-function createPassword(){
-    $letra1 = substr($_REQUEST['primerNombre'], 0, 1);
-    $apellido = ucwords(strtolower($_REQUEST['primerApellido']));
-    return $password = strtolower($letra1).$apellido."@".substr($_REQUEST['ci'],0,4);
-    //$_REQUEST['']
-}
 
-$letra1 = substr($_REQUEST['primerNombre'], 0, 1);
-$usuario = strtolower($letra1).strtolower($_REQUEST['primerApellido']);
-$persona = $objetoUsuario->datosUsuarioUser($usuario);
+
+$datosUsuario = $objetoUsuario->datosUsuario($_REQUEST['idUsuario']);
+/*$letra1 = substr($_REQUEST['primerNombre'], 0, 1);
+$usuario = strtolower($letra1).strtolower($_REQUEST['primerApellido']);*/
+$usuario = $_REQUEST['usuario'];
+/*$persona = $objetoUsuario->datosUsuarioUser($usuario);
 if($persona){
     $usuario .= "1";
 }
-$contrasenia = createPassword();
-//echo $contrasenia;
+/*if(){
+
+}*/
+$contrasenia = $_REQUEST['pass'];
 $hash = password_hash($contrasenia,PASSWORD_DEFAULT,['cost' => 10]);
 echo $ciExiste = $objetoUsuario->ciExiste($_REQUEST['ci']);
-
-//$persona = $objetoUsuario->datosUsuarioUser($usuario);
-//echo $persona['idPersona'];
-//$registro = $objetoUsuario->registrarAsignacionCarrera($_REQUEST['carrera'],$persona['idPersona']);
+if($datosUsuario['ci'] == $_REQUEST['ci']){
+    $ciExiste = 0;
+}
+$activo = $_REQUEST['activo'];
 
 if($ciExiste){
     header("Location:../Vista/CiDuplicado.php");
 }else{
-    $exitoRegistro = $objetoUsuario->registrarUsuario(
+    $exitoRegistro = $objetoUsuario->actualizarUsuario(
+        $_REQUEST['idUsuario'],
         ucwords(strtolower($_REQUEST['primerNombre'])),
         ucwords(strtolower($_REQUEST['segundoNombre'])),
         ucwords(strtolower($_REQUEST['primerApellido'])),
@@ -71,14 +62,17 @@ if($ciExiste){
         $_REQUEST['rol'],
         $_REQUEST['telefono'],
         $archivo,
-        $fechaHoraRegistro,
+        $fechaHoraActualizacion,
         $usuario,
-        $hash
+        $hash,
+        $activo
     );
     if($exitoRegistro){
         echo "exito";
         $persona = $objetoUsuario->datosUsuarioUser($usuario);
-        $registro = $objetoUsuario->registrarAsignacionCarrera($_REQUEST['carrera'],$persona['idPersona']);
+        $asignacion = $objetoUsuario->datosAsignacion($_REQUEST['idUsuario']);
+        
+        $registro = $objetoUsuario->actualizarAsignacionCarrera($asignacion['idAsignacionCarrera'],$_REQUEST['carrera'],$persona['idPersona']);
         header("Location:../Vista/Exito.php?password=".$contrasenia);
     }else{
         echo "Error";

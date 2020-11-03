@@ -52,7 +52,7 @@ if($datosUsuario['idRol']==1){
 }elseif($datosUsuario['idRol']==2){
     include_once("plantillas/navBarDocente.php");
 }elseif($datosUsuario['idRol']==3){
-    header('Location:Home.php');
+    include_once("plantillas/navBarEstudiante.php");
 }
 ?>
 <?php if(!isset($_SESSION['idUsuario'])){
