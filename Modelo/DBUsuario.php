@@ -77,6 +77,23 @@
 			}else{
 				return NULL;
 			}
+		}
+		public function busquedaUsuario($estado,$tipoUsuario){
+            $sqlListaUsuarios = "SELECT *, CONCAT_WS(' ',primerApellido,segundoApellido,primerNombre,segundoNombre) AS nombres
+                                FROM persona
+								WHERE activo LIKE '%".$estado."%'
+								AND idRol LIKE '%".$tipoUsuario."%';";
+								
+			$cmd = $this->conexion->prepare($sqlListaUsuarios);
+			$cmd->bindParam(':estado',$estado);
+			$cmd->bindParam(':tipoUsuario',$tipoUsuario);
+			$cmd->execute();
+			$listaUsuarios = $cmd->fetchAll();
+			if($listaUsuarios){
+				return $listaUsuarios;
+			}else{
+				return NULL;
+			}
         }
         public function datosUsuario($idPersona){
             $sqlListaUsuarios = "SELECT *, CONCAT_WS(' ',primerApellido,segundoApellido,primerNombre,segundoNombre) AS nombres

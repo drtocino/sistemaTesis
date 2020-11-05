@@ -46,6 +46,11 @@ $usuario = $listaUsuarios->datosUsuario($_REQUEST['idUsuario']);
                 <h5 class="bg-light p-2 rounded"><strong>Rol: </strong><?php switch($usuario['idRol']){ case 1:echo "Administrador";break;case 2:echo "Docente";break;case 3:echo "Estudiante";break;}?></h5>
                 <h5 class="bg-light p-2 rounded"><strong>Estado: </strong><?php if($usuario['activo']) echo "Activo"; else echo "Inactivo"?></h5>
                 <h5 class="bg-light p-2 rounded"><strong>Fecha de Registro: </strong><?php echo $usuario['fechaRegistro']?></h5>
+                <?php if($usuario['fechaActualizacion']!="0000-00-00 00:00:00"){?>
+                <h5 class="bg-light p-2 rounded"><strong>Fecha de Actualizacion: </strong><?php echo $usuario['fechaActualizacion']?></h5>
+                <?php }else{?>
+                    <h5 class="bg-light p-2 rounded"><strong>Fecha de Actualizacion: </strong>----</h5>
+                <?php }?>
             </div>
             <div class="col-sm-6 mt-3">
                 <?php if($usuario['fotografia']){?>

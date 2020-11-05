@@ -10,6 +10,10 @@ class LNListaUsuario{
         $lista = $this->objDBUsuario->listaUsuario();
 		return $lista;
     }
+    public function busquedaUsuario($estado,$tipoUsuario){
+        $lista = $this->objDBUsuario->busquedaUsuario($estado,$tipoUsuario);
+		return $lista;
+    }
     public function datosUsuario($idPersona){
         $lista = $this->objDBUsuario->datosUsuario($idPersona);
 		return $lista;

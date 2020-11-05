@@ -116,7 +116,7 @@ if($_SESSION['idUsuario']){
                         <div class="col-lg-6 mt-3">
                             <label for="rol">Rol:</label>
                             <select name="rol" id="rol" class="custom-select" required>
-                                <option value="<?php echo $usuario['idRol']?>" selected disabled><?php if($usuario['idRol']==1)echo "Administrador"; elseif($usuario['idRol']==2)echo "Docente";elseif($usuario['idRol']==3)echo "Estudiante";?></option>
+                                <option value="" selected disabled><?php if($usuario['idRol']==1)echo "Administrador"; elseif($usuario['idRol']==2)echo "Docente";elseif($usuario['idRol']==3)echo "Estudiante";?></option>
                                 <option value="1">Administrador</option>
                                 <option value="2">Docente</option>
                                 <option value="3">Estudiante</option>
@@ -180,15 +180,15 @@ if($_SESSION['idUsuario']){
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" name="fotografia" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" lang="es" required>
                                 <label class="custom-file-label text-left" for="inputGroupFile01">Fotografia en formato png, jpg o jpeg</label>
+                                <div class="invalid-feedback">Fotografia. Elija una fotografia en formato png, jpg o jpeg</div>
                             </div>
-                            <div class="invalid-feedback">Fotografia. Elija una fotografia en formato png, jpg o jpeg</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 mt-3">
                             <label for="carrera">Carrera:</label>
                             <select name="carrera" id="carrera" class="custom-select" required>
-                                <option value="<?php echo $asignacion['idAsignacionCarrera']?>" disabled selected><?php echo $asignacion['carrera']?></option>
+                                <option value="" disabled selected><?php echo $asignacion['carrera']?></option>
                                 <?php foreach($lista as $datos){?>
                                 <option value="<?php echo $datos['idCarrera']?>"><?php echo $datos['nombre']?></option>
                                 <?php }?>

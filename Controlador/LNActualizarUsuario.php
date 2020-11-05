@@ -76,7 +76,7 @@ if($ciExiste){
         header("Location:../Vista/Exito.php?password=".$contrasenia);
     }else{
         echo "Error";
-        header("Location:../Vista/Error.php");
+        //header("Location:../Vista/Error.php");
     }
 }
 ?>
