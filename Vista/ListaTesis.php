@@ -195,7 +195,7 @@ if(!isset($_SESSION['idUsuario'])){
                                 <select name="asesor" id="" class="custom-select mt-3" required>
                                     <option value="" selected disabled>Asesor</option>
                                     <?php foreach($asesores as $asesor){?>
-                                        <option value=""><?php echo $asesor['nombreCompleto']?></option>
+                                        <option value="<?php echo $asesor['idPersonalTesis']?>"><?php echo $asesor['nombreCompleto']?></option>
                                     <?php }?>
                                 </select>
                                 <select name="tipoBibliografia" id="" class="custom-select mt-3" required>

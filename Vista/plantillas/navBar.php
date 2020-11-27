@@ -35,7 +35,10 @@
         <a class="nav-link" href="ListaUsuarios.php">Usuarios</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ReporteFacultadFechas.php">Reporte Facultades</a>
+        <a class="nav-link" href="ReporteFacultadFechas.php">Reportes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Participantes.php">Participantes</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Perfil.php">Perfil</a>

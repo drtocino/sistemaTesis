@@ -32,7 +32,7 @@
         <a class="nav-link" href="ListaTesis.php">Tesis</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ReporteFacultadFechas.php">Reporte Facultades</a>
+        <a class="nav-link" href="ReporteFacultadFechas.php">Reportes</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Perfil.php">Perfil</a>

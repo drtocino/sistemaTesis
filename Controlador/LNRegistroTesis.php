@@ -56,10 +56,10 @@ if($size > 30000000){
         }
     }
     $idAsignacionCarrera = 126;
-$codigoTesis = "";
+$codigoTesis = "TES";
 switch($_REQUEST['facultad']){
     case 1:
-        $codigoTesis .= "FING";
+        $codigoTesis .= "-FING";
         switch ($_REQUEST['carrer']) {
             case 1:
                 $codigoTesis .= "-INSI";
@@ -76,7 +76,7 @@ switch($_REQUEST['facultad']){
         }
     break;
     case 2:
-        $codigoTesis .= "FSAL";
+        $codigoTesis .= "-FSAL";
         switch($_REQUEST['carrera']){
             case 7:
                 $codigoTesis .= "-CANU";
@@ -93,7 +93,7 @@ switch($_REQUEST['facultad']){
         }
     break;
     case 3:
-        $codigoTesis .= "FHUM";
+        $codigoTesis .= "-FHUM";
         switch($_REQUEST['carrera']){
             case 4:
                 $codigoTesis .= "-PSIC";
@@ -107,7 +107,7 @@ switch($_REQUEST['facultad']){
         }
     break;
     case 4:
-        $codigoTesis .= "FCEA";
+        $codigoTesis .= "-FCEA";
         switch($_REQUEST['carrera']){
             case 11:
                 $codigoTesis .= "-ADMI";
@@ -126,20 +126,30 @@ echo $codigoTesis;
 /*
 $asignacion = $usuario->datosAsignacionCarrera($_REQUEST['persona'],$_REQUEST['carrera']);
 $idAsignacionCarrera = $asignacion['idAsignacionCarrera'];*/
+$asignacionUsuario = $usuario->datosAsignacion($_REQUEST['persona']);
+$idAsignacionCarrera = $asignacionUsuario['idAsignacionCarrera'];
 
-$exitoRegistro = $objetoTesis->registrarTesis( 
+$exitoRegistro = $objetoTesis->registrarTesis(
 $idAsignacionCarrera,
 $_REQUEST['titulo'],
 $_REQUEST['tipoBibliografia'],
+$codigoTesis,
 $fechaHoraRegistro,
 $_REQUEST['resumen'],
 $_REQUEST["introduccion"],
+$_REQUEST['palabrasClave'],
 $archivo);
+var_dump($asignacionUsuario);
 if($exitoRegistro){
-    header("Location:../Vista/Exito.php");
+    $idDocumentoTesis = $objetoTesis->ultimoIdTesis();
+    $registroParticipantes = $objetoTesis->registrarParticipantesTesis($idDocumentoTesis['id'],$_REQUEST['persona'],$_REQUEST['asesor'],1);
+    //header("Location:../Vista/Exito.php");
     echo "Success";
 }else{
-    header("Location:../Vista/Error.php");
+    //header("Location:../Vista/Error.php");
+    $idDocumentoTesis = $objetoTesis->ultimoIdTesis();
+    echo $idDocumentoTesis['id'];
+    $registroParticipantes = $objetoTesis->registrarParticipantesTesis($idDocumentoTesis['id'],$_REQUEST['persona'],$_REQUEST['asesor'],1);
     echo "Error";
 }
 ?>

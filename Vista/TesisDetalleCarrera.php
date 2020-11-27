@@ -30,6 +30,10 @@ $datos = $objListaTesis->detalleTesis($_REQUEST['idTesis']);
     #viewpdf{
         min-height:50rem;
     }
+    iframe{
+        min-height:40rem;
+        min-width: 80%;
+    }
     /*.nav-pills{
         background:#f0a500;
     }*/
@@ -141,6 +145,7 @@ if($datosUsuario['idRol']==1){
                                     <h5>Tutor</h5>
                                     <img src="892771.svg"></img>
                                 </div>
+                                <a href="" class="bg-s-second btn-plus text-dark">+</a>
                             </div>
                         </div>
                     </div>
@@ -166,7 +171,8 @@ if($datosUsuario['idRol']==1){
                         <h5 class="card-header bg-main text-light">Documento</h5>
                         <div class="card-body bg-s-main text-dark">
                             <?php if($datos['documentoCompleto']){?>
-                            <div id="viewpdf"></div>
+                            <!--<div id="viewpdf"></div>-->
+                            <iframe src="<?php echo $datos['documentoCompleto']?>" class="mx-auto d-block img" frameborder="0" allowfullscreen="allowfullscreen" controls controlsList="nodownload"></iframe>
                             <?php }else{?>
                             <h3>No se pudo encontrar el archivo PDF</h3>
                             <?php }?>
@@ -182,8 +188,8 @@ if($datosUsuario['idRol']==1){
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/pdfobject.js"></script>
     <script>
-        var viewer = $('#viewpdf');
-        PDFObject.embed('<?php echo $datos['documentoCompleto']?>', viewer);
+        /*var viewer = $('#viewpdf');
+        PDFObject.embed('<?php echo $datos['documentoCompleto']?>', viewer);*/
     </script>
 </body>
 </html>

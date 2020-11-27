@@ -142,7 +142,7 @@
 			if($listaUsuarios){
 				return 1;
 			}else{
-				return NULL;
+				return 0;
 			}
         }
         public function registrarUsuario($primerNombre,$segundoNombre,$primerApellido,$segundoApellido,$ci,$rol,$telefono,$fotografia,$fechaRegistro,$usuario,$contrasenia){
@@ -192,6 +192,37 @@
 					$cmd->bindParam(':usuario', $usuario);
                     $cmd->bindParam(':contrasenia', $contrasenia);
 					$cmd->bindParam(':activo', $activo);
+					if($cmd->execute()){
+						return 1;  	
+					}else{
+						return 0;
+					}
+			}catch(PDOException $e){
+				echo 'ERROR: No se logro realizar la actualizacion'.$e->getMesage();
+				exit();
+				return 0;
+			}
+		}
+		public function actualizarPerfil($idPersona,$primerNombre,$segundoNombre,$primerApellido,$segundoApellido,$ci,$telefono,$fechaActualizacion){
+			$sqlActualizarUsuario= "UPDATE persona
+									SET primerNombre = :primerNombre, segundoNombre = :segundoNombre, primerApellido = :primerApellido, segundoApellido = :segundoApellido,
+									ci = :ci, telefono = :telefono, fechaActualizacion = :fechaActualizacion
+									WHERE idPersona = :idPersona;";
+			try{
+				$cmd = $this->conexion->prepare($sqlActualizarUsuario);
+					$cmd->bindParam(':idPersona', $idPersona);
+					$cmd->bindParam(':primerNombre', $primerNombre);
+					$cmd->bindParam(':segundoNombre', $segundoNombre);
+					$cmd->bindParam(':primerApellido', $primerApellido);
+					$cmd->bindParam(':segundoApellido', $segundoApellido);
+					$cmd->bindParam(':ci', $ci);
+                	//$cmd->bindParam(':idRol', $idRol);
+					$cmd->bindParam(':telefono', $telefono);
+                    //$cmd->bindParam(':fotografia', $fotografia);
+					$cmd->bindParam(':fechaActualizacion', $fechaActualizacion);
+					//$cmd->bindParam(':usuario', $usuario);
+                    //$cmd->bindParam(':contrasenia', $contrasenia);
+					//$cmd->bindParam(':activo', $activo);
 					if($cmd->execute()){
 						return 1;  	
 					}else{
