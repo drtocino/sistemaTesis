@@ -109,6 +109,9 @@ a{
 button{
   border: none;
 }
+.prooving{
+  color: #dc354682;
+}
 .btn-plus:hover{
   color:blue;
   text-decoration: none;

@@ -46,10 +46,10 @@ if($datosUsuario['idRol']==1){
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
-            <form action="../Controlador/LNRegistroUsuario.php" class="was-validated" method="POST" enctype="multipart/form-data">
+            <form action="../Controlador/LNRegistroParticipante.php" class="was-validated" method="POST" enctype="multipart/form-data">
                 <div class="modal-content">
                     <div class="modal-header bg-main text-light">
-                        <h5 class="modal-title" id="exampleModalLabel">Registro Usuario</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Registro Participante Tesis</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -63,9 +63,6 @@ if($datosUsuario['idRol']==1){
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Paso 2</a>
                             </li>
-                            <!--<li class="nav-item" role="presentation">
-                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-                            </li>-->
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -73,10 +70,9 @@ if($datosUsuario['idRol']==1){
                                 <input type="text" name="segundoNombre" class="form-control mt-3" id="segundoNombre" placeholder="Segundo Nombre" pattern="[A-Za-z0-9\s]{3,12}" title="Use solo letras y son requeridos 3 caracteres minimos, 12 maximo">
                                 <input type="text" name="primerApellido" class="form-control mt-3" id="primerApellido" placeholder="Primer Apellido" required pattern="[A-Za-z0-9\s]{3,12}" title="Use solo letras y son requeridos 3 caracteres minimos, 12 maximo">
                                 <input type="text" name="segundoApellido" class="form-control mt-3" id="segundoApellido" placeholder="Segundo Apellido" required pattern="[A-Za-z0-9\s]{3,12}" title="Use solo letras y son requeridos 3 caracteres minimos, 12 maximo">
-                                <input type="text" name="ci" class="form-control mt-3" id="" placeholder="CI" required pattern="[0-9\s]{5,10}" title="Ingrese un numero de 5 hasta 10 caracteres">
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <select name="rol" id="" class="custom-select mt-3" required>
+                                <!--<select name="rol" id="" class="custom-select mt-3" required>
                                     <option value="" disabled selected>Tipo de Usuario</option>
                                     <option value="1">Administrador</option>
                                     <option value="2">Docente</option>
@@ -88,13 +84,13 @@ if($datosUsuario['idRol']==1){
                                     <option value="<?php echo $datos['idCarrera']?>"><?php echo $datos['nombre']?></option>
                                     <?php }?>
                                 </select>
-                                <input type="text" class="form-control mt-3" name="telefono" id="" placeholder="Telefono" required pattern="[0-9\s]{6,8}" title="Ingrese un numero de 6 hasta 8 caracteres">
+                                <input type="text" class="form-control mt-3" name="telefono" id="" placeholder="Telefono" required pattern="[0-9\s]{6,8}" title="Ingrese un numero de 6 hasta 8 caracteres">-->
+                                <input type="text" name="ci" class="form-control mt-3" id="" placeholder="CI" required pattern="[0-9\s]{5,10}" title="Ingrese un numero de 5 hasta 10 caracteres">
                                 <div class="custom-file mt-3">
                                     <input type="file" class="custom-file-input" name="fotografia" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" lang="es" required>
                                     <label class="custom-file-label text-left" for="inputGroupFile01">Fotografia de la persona en formato png, jpg o jpeg</label>
                                 </div>
                             </div>
-                            <!-- <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>-->
                         </div>
                     </div>
                     <div class="modal-footer">

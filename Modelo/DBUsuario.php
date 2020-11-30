@@ -203,10 +203,10 @@
 				return 0;
 			}
 		}
-		public function actualizarPerfil($idPersona,$primerNombre,$segundoNombre,$primerApellido,$segundoApellido,$ci,$telefono,$fechaActualizacion){
+		public function actualizarPerfil($idPersona,$primerNombre,$segundoNombre,$primerApellido,$segundoApellido,$ci,$telefono,$usuario,$fechaActualizacion){
 			$sqlActualizarUsuario= "UPDATE persona
 									SET primerNombre = :primerNombre, segundoNombre = :segundoNombre, primerApellido = :primerApellido, segundoApellido = :segundoApellido,
-									ci = :ci, telefono = :telefono, fechaActualizacion = :fechaActualizacion
+									ci = :ci, telefono = :telefono, usuario = :usuario, fechaActualizacion = :fechaActualizacion
 									WHERE idPersona = :idPersona;";
 			try{
 				$cmd = $this->conexion->prepare($sqlActualizarUsuario);
@@ -216,13 +216,9 @@
 					$cmd->bindParam(':primerApellido', $primerApellido);
 					$cmd->bindParam(':segundoApellido', $segundoApellido);
 					$cmd->bindParam(':ci', $ci);
-                	//$cmd->bindParam(':idRol', $idRol);
 					$cmd->bindParam(':telefono', $telefono);
-                    //$cmd->bindParam(':fotografia', $fotografia);
+					$cmd->bindParam(':usuario', $usuario);
 					$cmd->bindParam(':fechaActualizacion', $fechaActualizacion);
-					//$cmd->bindParam(':usuario', $usuario);
-                    //$cmd->bindParam(':contrasenia', $contrasenia);
-					//$cmd->bindParam(':activo', $activo);
 					if($cmd->execute()){
 						return 1;  	
 					}else{

@@ -89,6 +89,8 @@ if(isset($_POST['facultad'])){
 ?>
 <script>
     $(document).ready( function () {
-        $('#group').DataTable();
+        $('#group').DataTable({
+            "ordering": false
+        });
     } );
 </script>

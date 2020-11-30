@@ -254,7 +254,9 @@ if(!isset($_SESSION['idUsuario'])){
     <script src="../js/bootstrap.min.js"></script>
     <script>
         $(document).ready( function () {
-            $('#group').DataTable();
+            $('#group').DataTable({
+                "ordering": false
+            });
             $('#facultad').on('change',function(){
                 var idFacultad = $(this).val();
                 if(idFacultad){
@@ -267,7 +269,7 @@ if(!isset($_SESSION['idUsuario'])){
                         }
                     });
                 }else{
-                    $('#carrera').html('<option>Selecciona una Facultad</option>');
+                    $('#carrera').html('<option selected>Carrera</option><?php foreach($carreras as $carrera){?><option value="<?php echo $carrera["idCarrera"]?>"><?php echo $carrera['nombre']?></option><?php }?>');
                 }
             });
             $(buscarDatos());
