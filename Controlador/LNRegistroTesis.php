@@ -121,8 +121,16 @@ switch($_REQUEST['facultad']){
         }
     break;
 }
-
-echo $codigoTesis;
+$idUsuario = ($_POST['persona']);
+echo "==IDs==";
+var_dump($idUsuario);
+$usuarios = current($idUsuario);
+echo "==Usuarios==";
+var_dump($usuarios);
+foreach($idUsuario as $id){
+    echo $id."\n";
+}
+//echo $codigoTesis;
 /*
 $asignacion = $usuario->datosAsignacionCarrera($_REQUEST['persona'],$_REQUEST['carrera']);
 $idAsignacionCarrera = $asignacion['idAsignacionCarrera'];*/

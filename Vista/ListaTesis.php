@@ -29,6 +29,7 @@ $datosAnio = $objDatosFacultad->reporteAnualFacultad(1);
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../css/select2.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista Tesis</title>
 </head>
@@ -47,6 +48,17 @@ $datosAnio = $objDatosFacultad->reporteAnualFacultad(1);
         border:1px solid #ced4da;
         border-radius:.25rem;
         transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out
+    }
+    /*#autor2{
+        background:#2d24ef;
+        color: #2d24ef;
+        border-radius: 100%;
+    }*/
+    .js-example-responsive{
+        width: 100%;
+    }
+    .modal-fade{
+        width: 100%;
     }
 </style>
 <body>
@@ -180,24 +192,69 @@ if(!isset($_SESSION['idUsuario'])){
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Paso 1</a>
-                                <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Paso 2</a>
-                                <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Paso 3</a>
+                                <!--<a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Paso 2</a>-->
+                                <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Paso 2</a>
                             </div>
                         </nav>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <select name="facultad" id="fac" class="custom-select mt-3" required>
+                                    <option value="" selected disabled>Seleccione una Facultad</option>
+                                    <?php foreach($facultad as $dato){?>
+                                    <option value="<?php echo $dato['idFacultad']?>"><?php echo $dato['nombre']?></option>
+                                    <?php }?>
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
+                                <select name="carrera" id="car" class="custom-select mt-3" required>
+                                    <option value="" selected disabled>Seleccione una Facultad Primero</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                <select name="persona" id="" class="custom-select mt-3" placeholder="Autor" required>
-                                    <option value="" selected disabled>Autor</option>
-                                    <?php foreach($personas as $datos){?>
-                                        <option value="<?php echo $datos['idPersona']?>"><?php echo $datos['nombres']?></option>
-                                    <?php }?>
-                                </select>
-                                <select name="asesor" id="" class="custom-select mt-3" required>
-                                    <option value="" selected disabled>Asesor</option>
-                                    <?php foreach($asesores as $asesor){?>
-                                        <option value="<?php echo $asesor['idPersonalTesis']?>"><?php echo $asesor['nombreCompleto']?></option>
-                                    <?php }?>
-                                </select>
+                                <div id="autores">
+                                    <div class="input-group mt-3" id="autor">
+                                        <select name="persona[]" id="inpautor" class="form-control" multiple="multiple" style="width:100%" placeholder="Autor" required>
+                                            <!--<option value="" selected disabled>Autor</option>-->
+                                            <?php foreach($personas as $datos){?>
+                                                <option value="<?php echo $datos['idPersona']?>"><?php echo $datos['nombres']?></option>
+                                            <?php }?>
+                                        </select>
+                                        <!--<div class="input-group-append" id="button-addon3">
+                                            <button id="addAutor" class="btn btn-success" type="button">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.5-3a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                                </svg>
+                                            </button>
+                                            <button id="" class="btn btn-danger" type="button" disabled>
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                                                </svg>
+                                            </button>
+                                        </div>-->
+                                    </div>
+                                </div>
+                                <div class="input-group mt-3">
+                                    <select name="asesor" id="" class="custom-select" required>
+                                        <option value="" selected disabled>Asesor</option>
+                                        <?php foreach($asesores as $asesor){?>
+                                            <option value="<?php echo $asesor["idPersonalTesis"]?>"><?php echo $asesor["nombreCompleto"]?></option>
+                                        <?php }?>
+                                    </select>
+                                    <div class="input-group-append" id="button-addon3">
+                                        <button id="addAsesor" class="btn btn-success" type="button">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.5-3a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                            </svg>
+                                        </button>
+                                        <button id="quitarAsesor" class="btn btn-danger" type="button" disabled>
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
                                 <select name="tipoBibliografia" id="" class="custom-select mt-3" required>
                                     <option value="" disabled selected>Tipo de Bibliografia</option>
                                     <?php foreach($tipoTesis as $tipo){?>
@@ -205,7 +262,7 @@ if(!isset($_SESSION['idUsuario'])){
                                     <?php }?>
                                 </select>
                             </div>
-                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <!--<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <select name="facultad" id="fac" class="custom-select mt-3" required>
@@ -221,9 +278,9 @@ if(!isset($_SESSION['idUsuario'])){
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                                <input type="text" name="titulo" class="form-control mt-3" placeholder="Titulo" required>
+                                <input type="text" id="titulo" name="titulo" class="form-control mt-3" placeholder="Titulo" required>
                                 <input type="text" name="palabrasClave" class="form-control mt-3" id="" placeholder="Palabras Clave" required>
                                 <!-- <option value="" id="asignacion"> </option>-->
                                 <textarea name="resumen" class="form-control mt-3" id="" cols="30" rows="5" placeholder="Resumen" required></textarea>
@@ -242,7 +299,8 @@ if(!isset($_SESSION['idUsuario'])){
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+                        <input type="reset" class="btn btn-dark" id="reset" data-dismiss="modal" value="Cancelar">
+                        <!--<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>-->
                         <input type="submit" value="Registrar" class="btn bg-s-second">
                     </div>
                 </div>
@@ -252,6 +310,7 @@ if(!isset($_SESSION['idUsuario'])){
     <script src="../js/jquery-3.5.1.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/select2.min.js"></script>
     <script>
         $(document).ready( function () {
             $('#group').DataTable({
@@ -303,54 +362,6 @@ if(!isset($_SESSION['idUsuario'])){
                     buscarDatos("","","","");
                 }
             });
-            /*$(document).on('change','#facultad',function(){
-                var facultad = $(this).val();    
-                if(facultad){
-                    buscarDatos(facultad);
-                    $(document).on('change','#carrera',function(){
-                        var carrera = $(this).val();
-                        if(carrera != ""){
-                            buscarDatos(facultad, carrera);
-                            $(document).on('change','#tipoBibliografia',function(){
-                                var tipo = $(this).val();
-                                if(tipo != ""){
-                                    buscarDatos(facultad, carrera, tipo);
-                                    $(document).on('change','#anio',function(){
-                                        var anio = $(this).val();
-                                        if(anio != ""){
-                                            buscarDatos(facultad, carrera, tipo, anio);
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }else{
-                    $(document).on('change','#tipoBibliografia',function(){
-                        var tipo = $(this).val();
-                        if(tipo != ""){
-                            buscarDatos(facultad, "", tipo);
-                        }else{
-                            buscarDatos();
-                        }
-                    });
-                }
-            });*/
-            /*$(document).on('change','#tipoBibliografia',function(){
-                var tipo = $(this).val();
-                if(tipo != ""){
-                    buscarDatos("", "", tipo);
-                }else{
-                    buscarDatos();
-                }
-            });
-            $(document).on('change','#anio',function(){
-                var anio = $(this).val();
-                if(anio != ""){
-                    buscarDatos("", "", "", anio);
-                    //console.log(anio);
-                }
-            });*/
             $('#fac').on('change',function(){
                 var idFacultad = $(this).val();
                 if(idFacultad){
@@ -366,7 +377,26 @@ if(!isset($_SESSION['idUsuario'])){
                     $('#car').html('<option>Selecciona una Facultad</option>');
                 }
             });
-            
+            $('#quitarAutor').on('click',function(){
+                $('#autor2').remove();
+                
+            });
+            $('#addAutor').on('click',function(){
+
+                var input = $('<div class="input-group mt-3" id="autor2"><select name="persona2" id="" class="custom-select" placeholder="Autor" required><option value="" selected disabled>Autor</option><?php foreach($personas as $datos){?><option value="<?php echo $datos['idPersona']?>"><?php echo $datos['nombres']?></option><?php }?></select><div class="input-group-append" id="button-addon3"><button id="addAutor" class="btn btn-success" type="button"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.5-3a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/></svg></button><button onclick="remove()" id="quitarAutor" class="btn btn-danger" type="button"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/></svg></button></div></div>');
+                //var input = $('<input class="form-control" type="text" id="autor2" placeholder="Autores" required><button id="quitarAutor" class="btn btn-danger" type="button">Q</button>');
+                $('#autores').append(input);
+                
+            });
+
+                //$('.js-example-responsive').select2();
+            $('#inpautor').select2({
+                placeholder: 'Autor'
+            });
+            $('#reset').on('click',function(){
+                $('#inpautor').val('').trigger('change.select2');
+                $('#titulo').val('');
+            });
         });
         
     </script>

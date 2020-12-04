@@ -13,7 +13,7 @@
         <?php if(isset($_REQUEST['password'])){?>
             <h4>El password es <?php echo $_REQUEST['password']?></h4>
         <?php }?>
-        <a href="ListaTesis.php" class="btn btn-success mt-4">Lista de Tesis</a>
+        <a href="Home.php" class="btn btn-success mt-4">Ir a Inicio</a>
 
     </div>
 </body>

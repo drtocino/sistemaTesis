@@ -9,5 +9,9 @@ class LNListaParticipante{
         $lista = $this->objDBParticipante->listaParticipante();
 		return $lista;
     }
+    public function datosParticipante($idParticipante){
+        $lista = $this->objDBParticipante->datosParticipante($idParticipante);
+		return $lista;
+    }
 }
 ?>

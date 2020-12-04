@@ -253,6 +253,7 @@ if($_SESSION['idUsuario']){
         var number = document.getElementById("numero");
         var special = document.getElementById("especial");
         var eight = document.getElementById("caracteres");
+        var submit = document.getElementById("submit");
 
             pass.onfocus = function() {
             document.getElementById("message").style.display = "block";
@@ -264,6 +265,7 @@ if($_SESSION['idUsuario']){
                 } else {
                 letter.classList.remove("valid");
                 letter.classList.add("invalid");
+                submit.disabled = true;
                 }
 
                 var upperCaseLetters = /[A-Z]/g;
@@ -273,6 +275,7 @@ if($_SESSION['idUsuario']){
                 } else {
                 capital.classList.remove("valid");
                 capital.classList.add("invalid");
+                submit.disabled = true;
                 }
 
                 var numbers = /[0-9]/g;
@@ -282,6 +285,7 @@ if($_SESSION['idUsuario']){
                 } else {
                 number.classList.remove("valid");
                 number.classList.add("invalid");
+                submit.disabled = true;
                 }
 
                 var specials = /[!@#$%^&*()]/g;
@@ -291,6 +295,7 @@ if($_SESSION['idUsuario']){
                 } else {
                 special.classList.remove("valid");
                 special.classList.add("invalid");
+                submit.disabled = true;
                 }
 
                 if(pass.value.length >= 8) {
@@ -299,6 +304,7 @@ if($_SESSION['idUsuario']){
                 } else {
                 eight.classList.remove("valid");
                 eight.classList.add("invalid");
+                submit.disabled = true;
                 }
             }
             pass.onblur = function() {

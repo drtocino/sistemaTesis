@@ -10,7 +10,7 @@
         }
 
         public function listaAsesor(){
-            $sqlListaAsesor = "SELECT *, CONCAT_WS(' ',primerNombre,segundoNombre,apellidoPaterno,apellidoMaterno) AS nombreCompleto FROM personalTesis ORDER BY apellidoMaterno";
+            $sqlListaAsesor = "SELECT *, CONCAT_WS(' ',primerApellido,segundoApellido,primerNombre,segundoNombre) AS nombreCompleto FROM personalTesis ORDER BY segundoApellido";
             $cmd = $this->conexion->prepare($sqlListaAsesor);
 			$cmd->execute();
             $listaAsesor = $cmd->fetchAll();
